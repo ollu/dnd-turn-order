@@ -11,9 +11,9 @@
               </button>
             </div>
             <div class="text-xs uppercase">
-              <button @click="openConditionsModal(index)" class="uppercase text-gray-400"><span class="text-sm font-semibold">+</span>Cond</button>
+              <button @click="openConditionsModal(index)" class="uppercase text-gray-400"><span class="text-sm font-semibold">+</span>Cond:</button>
               <span v-if="player.conditions.length > 0">
-                <span v-for="condition in player.conditions" :key="condition" class="pr-1">{{ condition }}</span>
+                <span v-for="condition in player.conditions" :key="condition" class="pr-1">&nbsp;{{ condition }}</span>
               </span>
             </div>
           </div>
