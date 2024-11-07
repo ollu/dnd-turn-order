@@ -17,7 +17,7 @@
       <p v-if="localSelectedConditions.length >= maxConditions" class="text-gray-800 text-sm mt-4">Max number of conditions selected ({{ maxConditions }}).</p>
     </template>
     <template #footer>
-      <button @click="saveConditions" class="btn primary">Save</button>
+      <button @click="saveConditions" class="btn primary" @keyup.enter="saveConditions">Save</button>
     </template>
   </ModalWrapper>
 </template>
