@@ -18,7 +18,13 @@ export default defineNuxtConfig({
         { hid: "description", name: "description", content: "" },
         { name: "format-detection", content: "telephone=yes" },
       ],
-      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+      link: [
+        { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
+        {rel: 'apple-touch-icon', type: "image/x-icon", href: 'icons/icon-80x80.png'},
+        {rel: 'apple-touch-icon', type: "image/x-icon", sizes: '152x152', href: 'icons/icon-152x152.png'},
+        {rel: 'apple-touch-icon', type: "image/x-icon", sizes: '167x167', href: 'icons/icon-167x167.png'},
+        {rel: 'apple-touch-icon', type: "image/x-icon", sizes: '180x180', href: 'icons/icon-180x180.png'},
+      ],
     },
   },
   // Global CSS: https://go.nuxtjs.dev/config-css
