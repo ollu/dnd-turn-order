@@ -77,6 +77,5 @@ export default defineNuxtConfig({
       ],
     },
     workbox: {},
-    devOptions: { enabled: true },
   },
 });
