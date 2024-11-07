@@ -9,6 +9,7 @@
       <input v-model="initiative" @keyup.enter="updatePlayer" type="text" id="hero-initiative" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
     </template>
     <template #footer>
+      <button class="btn secondary" @click="deletePlayer">Delete player</button>
       <button class="btn primary" @click="updatePlayer">Update</button>
     </template>
   </ModalWrapper>
@@ -46,6 +47,11 @@ onMounted(() => {
   heroName.value = store.players[props.playerIndex].name
   initiative.value = store.players[props.playerIndex].initiative
 })
+
+function deletePlayer() {
+  store.removePlayer(props.playerIndex)
+  closeModal()
+}
 
 function closeModal() {
   emit("close");
