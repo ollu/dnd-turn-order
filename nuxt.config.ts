@@ -1,21 +1,76 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
-  devtools: { enabled: true },
+  devtools: { enabled: false },
 
+  ssr: false,
+
+  // Global page headers: https://go.nuxtjs.dev/config-head
+  app: {
+    head: {
+      title: "Turn Order",
+      meta: [
+        { charset: "utf-8" },
+        {
+          name: "viewport",
+          content: "width=device-width, initial-scale=1, maximum-scale=1",
+        },
+        { hid: "description", name: "description", content: "" },
+        { name: "format-detection", content: "telephone=yes" },
+      ],
+      link: [{ rel: "icon", type: "image/x-icon", href: "/favicon.ico" }],
+    },
+  },
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ["~/assets/main.css"],
-
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  // plugins: ["~/plugins/pinia.js"],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
-    // https://go.nuxtjs.dev/pwa
-    "@pinia/nuxt",
+    [
+      "@pinia/nuxt", {
+        autoImports: ["defineStore", "acceptHMRUpdate"],
+      },
+    ],
     "@nuxtjs/tailwindcss",
+    "@vite-pwa/nuxt",
   ],
+
+  pwa: {
+    manifest: {
+      name: "Cavemen Turn Order",
+      short_name: "Turn Order",
+      description: "A simple turn order tracker for D&D",
+      lang: "en",
+      display: "standalone",
+      background_color: "#1F2937",
+      theme_color: "#1F2937",
+      start_url: "/",
+      icons: [
+        {
+          src: "icons/icon-64x64.png",
+          sizes: "64x64",
+          type: "image/png",
+        },
+        {
+          src: "icons/icon-144x144.png",
+          sizes: "144x144",
+          type: "image/png",
+        },
+        {
+          src: "icons/icon-192x192.png",
+          sizes: "192x192",
+          type: "image/png",
+        },
+        {
+          src: "icons/icon-512x512.png",
+          sizes: "512x512",
+          type: "image/png",
+        },
+      ],
+    },
+    workbox: {},
+    devOptions: { enabled: true },
+  },
 });

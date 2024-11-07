@@ -10,11 +10,10 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxtjs/pwa": "^3.3.5",
     "@pinia/nuxt": "^0.7.0",
+    "@vite-pwa/nuxt": "^0.10.6",
     "nuxt": "^3.14.0",
-    "vue": "latest",
-    "vue-router": "latest"
+    "vue": "latest"
   },
   "devDependencies": {
     "@nuxt/types": "^2.18.1",

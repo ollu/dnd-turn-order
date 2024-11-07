@@ -1,5 +1,6 @@
 <template>
 <div class="flex flex-col h-screen">
+  <VitePwaManifest />
   <nav class="bg-gray-800 border-gray-700">
     <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto py-4 pr-4">
       <span href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
