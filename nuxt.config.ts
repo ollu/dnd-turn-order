@@ -20,10 +20,29 @@ export default defineNuxtConfig({
       ],
       link: [
         { rel: "icon", type: "image/x-icon", href: "/favicon.ico" },
-        {rel: 'apple-touch-icon', type: "image/x-icon", href: 'icons/icon-80x80.png'},
-        {rel: 'apple-touch-icon', type: "image/x-icon", sizes: '152x152', href: 'icons/icon-152x152.png'},
-        {rel: 'apple-touch-icon', type: "image/x-icon", sizes: '167x167', href: 'icons/icon-167x167.png'},
-        {rel: 'apple-touch-icon', type: "image/x-icon", sizes: '180x180', href: 'icons/icon-180x180.png'},
+        {
+          rel: "apple-touch-icon",
+          type: "image/x-icon",
+          href: "icons/icon-80x80.png",
+        },
+        {
+          rel: "apple-touch-icon",
+          type: "image/x-icon",
+          sizes: "152x152",
+          href: "icons/icon-152x152.png",
+        },
+        {
+          rel: "apple-touch-icon",
+          type: "image/x-icon",
+          sizes: "167x167",
+          href: "icons/icon-167x167.png",
+        },
+        {
+          rel: "apple-touch-icon",
+          type: "image/x-icon",
+          sizes: "180x180",
+          href: "icons/icon-180x180.png",
+        },
       ],
     },
   },
@@ -35,7 +54,8 @@ export default defineNuxtConfig({
 
   modules: [
     [
-      "@pinia/nuxt", {
+      "@pinia/nuxt",
+      {
         autoImports: ["defineStore", "acceptHMRUpdate"],
       },
     ],
@@ -77,5 +97,8 @@ export default defineNuxtConfig({
       ],
     },
     workbox: {},
+    devOptions: {
+      enabled: true,
+    },
   },
 });
