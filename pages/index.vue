@@ -16,9 +16,8 @@
       <div :class="{'hidden': !isMenuOpen, 'block': isMenuOpen}">
         <ul class="pl-4 flex flex-col font-medium mt-4 bg-gray-800 border-gray-700">
           <li><a href="#" @click="resetTurnCounter" class="block py-2 px-4 text-gray-400 hover:bg-gray-700">Reset turn counter</a></li>
-          <li><a href="#" @click="resetFight" class="block py-2 px-4 text-gray-400 hover:bg-gray-700">New fight</a></li>
-          <li><a href="#" @click="deleteHeroes" class="block py-2 px-4 text-gray-400 hover:bg-gray-700">Delete all heroes</a></li>
-          <li><a href="#" class="block py-2 px-4 text-gray-400 hover:bg-gray-700">Edit/add conditions</a></li>
+          <li><a href="#" @click="resetFight" class="block py-2 px-4 text-gray-400 hover:bg-gray-700">Reset fight</a></li>
+          <li><a href="#" @click="deleteAllHeroes" class="block py-2 px-4 text-gray-400 hover:bg-gray-700">Delete all heroes</a></li>
         </ul>
       </div>
     </div>
@@ -47,10 +46,9 @@ function resetFight() {
   store.resetFight()
 }
 
-function deleteHeroes() {
-  console.log('deleteHeroes')
+function deleteAllHeroes() {
+  store.deleteAllHeroes()
   toggleMenu()
-  // store.deleteAllHeroes()
 }
 
 onMounted(() => {

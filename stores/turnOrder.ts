@@ -17,15 +17,23 @@ export const useTurnOrderStore = defineStore('turnOrder', {
       this.sortPlayers()
       this.saveToLocalStorage()
     },
+    deleteAllHeroes() {
+      // Remove all players that are heroes.
+      this.players = this.players.filter((player) => player.type === "monster");
+      this.saveToLocalStorage()
+    },
+    deleteAllMonsters() {
+      // Remove all players that are NOT heroes.
+      this.players = this.players.filter((player) => player.type === "hero");
+      this.saveToLocalStorage()
+    },
     removePlayer(index: number) {
       this.players.splice(index, 1)
       this.saveToLocalStorage()
     },
     resetFight() {
-      // Remove all players that are NOT heroes.
-      this.players = this.players.filter(
-        (player) => player.type === "hero"
-      )
+      this.deleteAllMonsters()
+
       // Reset conditions and initiative for all players.
       this.players.forEach((player) => {
         player.conditions = []
