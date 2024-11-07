@@ -65,9 +65,9 @@ export default defineNuxtConfig({
 
   pwa: {
     manifest: {
-      name: "Cavemen Turn Order",
+      name: "Turn Order",
       short_name: "Turn Order",
-      description: "A simple turn order tracker for D&D",
+      description: "A simple role playing turn order tracker.",
       lang: "en",
       display: "standalone",
       background_color: "#1F2937",
