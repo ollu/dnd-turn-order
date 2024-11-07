@@ -20,7 +20,7 @@
         </div>
         <div class="w-14 h-full flex items-center justify-center text-center text-2xl rounded bg-white/5 border-l border-t border-gray-400">
           <span v-if="editingIndex !== index" @click="editInitiative(index)">{{ player.initiative }}</span>
-          <input v-else type="tel" v-model.number="newInitiative" @blur="saveInitiative(index)" @keyup.enter="saveInitiative(index)" class="w-full text-center bg-transparent border-none focus:outline-none">
+          <input v-else type="tel" v-model.number="newInitiative" @blur="saveInitiative(index)" @keyup.enter="saveInitiative(index)" class="w-full h-full rounded text-center bg-white/90 border-none focus:outline-none">
         </div>
       </li>
     </ul>
