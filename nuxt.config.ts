@@ -60,7 +60,9 @@ export default defineNuxtConfig({
       },
     ],
     "@nuxtjs/tailwindcss",
-    "@vite-pwa/nuxt",
+    ["@vite-pwa/nuxt", {
+      registerType: "autoUpdate",
+    }],
   ],
 
   pwa: {
