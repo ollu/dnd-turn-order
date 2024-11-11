@@ -32,7 +32,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useTurnOrderStore } from '~/stores/turnOrder'
-import { iconAccountEdit } from '~/assets/icons.js'
+import { iconAccountEdit, iconDead, iconBlessed } from '~/assets/icons.js'
 
 const store = useTurnOrderStore()
 const conditionsModal = ref(false)
