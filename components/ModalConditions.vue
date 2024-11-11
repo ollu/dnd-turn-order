@@ -34,7 +34,7 @@ const props = defineProps({
 })
 const emit = defineEmits(["close"]);
 const store = useTurnOrderStore()
-const conditions = ref(["Blind", "Charm", "Dead", "Deaf", "Fright", "Grapple", "Invis", "Paralyze", "Petrify", "Poison", "Prone", "Restrain", "Stun", "Unconscious"])
+const conditions = ref(["Blinded", "Charmed", "Deafened", "Frightened", "Grappled", "Incapacitated", "Invisible", "Paralyzed", "Petrified", "Poisoned", "Prone", "Restrained", "Stunned", "Unconscious", "Exhaustion"])
 const localSelectedConditions = ref([])
 const maxConditions = 3
 

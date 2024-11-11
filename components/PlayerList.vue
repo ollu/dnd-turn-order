@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-auto max-w-4xl">
+  <div class="mx-auto max-w-2xl">
     <ul class="mx-2 md:mx-4">
       <li v-for="(player, index) in store.players" :key="index" class="flex gap-2 h-16 border rounded p-2 my-2 odd:bg-gray-100 even:bg-gray-200">
         <div class="shrink w-full">
