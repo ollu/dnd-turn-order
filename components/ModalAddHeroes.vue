@@ -3,7 +3,7 @@
     <template #title>Add heroes</template>
     <template #body>
       <label for="hero-name" class="pl-2 block text-sm font-medium text-gray-900">Hero name</label>
-      <input v-model="heroName" @keyup.enter="addHero" type="text" id="hero-name" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
+      <input v-model="heroName" @keyup.enter="addHero" type="text" id="hero-name" ref="heroNameRef" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 ">
       <p v-if="noName" class="text-blood text-sm pl-2">No fantasy, maybe <em>Stupid</em> could work?</p>
       <label for="hero-initiative" class="mt-2 pl-2 block text-sm font-medium text-gray-900">Hero initiative</label>
       <input v-model="initiative" @keyup.enter="addHero" type="tel" id="hero-initiative" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
@@ -15,14 +15,19 @@
   </ModalWrapper>
 </template>
 <script setup>
-import { ref } from 'vue'
+import { ref, nextTick } from 'vue'
 import { useTurnOrderStore } from '~/stores/turnOrder'
 
 const emit = defineEmits(["close"]);
 const store = useTurnOrderStore()
 const heroName = ref("")
+const heroNameRef = ref(null)
 const initiative = ref(0)
 const noName = ref(false)
+
+onMounted(() => {
+  nextTick(() => heroNameRef.value.focus())
+})
 
 function addHero() {
   if (!heroName.value) {
@@ -34,6 +39,7 @@ function addHero() {
   heroName.value = ""
   initiative.value = 0
   noName.value = false
+  nextTick(() => heroNameRef.value.focus())
 }
 
 function addHeroAndClose() {
