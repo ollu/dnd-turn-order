@@ -4,7 +4,7 @@
       <p>Add some players and monsters to start the fight!</p>
     </div>
     <div v-else>
-      <PlayerList class="mx-2" />
+      <PlayersList class="mx-2" />
     </div>
   </main>
 </template>
