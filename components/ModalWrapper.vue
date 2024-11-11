@@ -1,5 +1,5 @@
 <template>
-  <div class="fixed left-0 top-[72px] z-50 h-full w-full overflow-y-auto overflow-x-hidden bg-gray-600/80 outline-none"
+  <div class="fixed left-0 top-0 z-50 h-full w-full overflow-y-auto overflow-x-hidden bg-gray-600/80 outline-none"
     tabindex="-1">
     <div class="pointer-events-none flex items-center flex-col relative">
       <div

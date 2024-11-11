@@ -32,7 +32,6 @@
 <script setup>
 import { ref } from 'vue'
 import { useTurnOrderStore } from '~/stores/turnOrder'
-import ModalConditions from './ModalConditions.vue'
 import { iconAccountEdit } from '~/assets/icons.js'
 
 const store = useTurnOrderStore()
