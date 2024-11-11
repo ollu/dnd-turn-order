@@ -4,7 +4,7 @@
       <li v-for="(player, index) in store.players" :key="index" class="flex gap-2 h-16 border rounded p-2 my-2 odd:bg-gray-100 even:bg-gray-200">
         <div class="shrink w-full">
           <div class="grid grid-rows-2 gap-2">
-            <div>
+            <div class="flex">
               <button @click="openEditPlayer(index)" class="capitalize font-bold flex gap-2">
                 <OIcon color="medium" :icon="iconAccountEdit" />
                 {{ player.name }}
