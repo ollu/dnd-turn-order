@@ -17,6 +17,7 @@
       <p v-if="localSelectedConditions.length >= maxConditions" class="text-gray-800 text-sm mt-4">Max number of conditions selected ({{ maxConditions }}).</p>
     </template>
     <template #footer>
+      <button @click="clearConditions" class="btn secondary">Clear conditions</button>
       <button @click="saveConditions" class="btn primary" @keyup.enter="saveConditions">Save</button>
     </template>
   </ModalWrapper>
@@ -34,7 +35,7 @@ const props = defineProps({
 })
 const emit = defineEmits(["close"]);
 const store = useTurnOrderStore()
-const conditions = ref(["Blinded", "Charmed", "Deafened", "Frightened", "Grappled", "Incapacitated", "Invisible", "Paralyzed", "Petrified", "Poisoned", "Prone", "Restrained", "Stunned", "Unconscious", "Exhaustion"])
+const conditions = ref(['Bless', 'Dead', 'Poison', 'Stun', 'Sleep'])
 const localSelectedConditions = ref([])
 const maxConditions = 3
 
@@ -50,6 +51,11 @@ const isConditionDisabled = (condition) => {
 
 function closeModal() {
   emit('close')
+}
+
+function clearConditions() {
+  localSelectedConditions.value = []
+  saveConditions()
 }
 
 function saveConditions() {
