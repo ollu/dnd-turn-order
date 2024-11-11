@@ -23,6 +23,7 @@ const iconSizes = {
   'normal': 'w-6 h-6',
   'medium': 'w-8 h-8',
   'large': 'w-10 h-10',
+  'x-large': 'w-12 h-12',
 }
 
 const iconColors = {

@@ -1,8 +1,10 @@
 <template>
   <div class="mx-auto max-w-2xl">
     <ul class="mx-2 md:mx-4">
-      <li v-for="(player, index) in store.players" :key="index" class="flex gap-2 h-16 border rounded p-2 my-2 odd:bg-gray-100 even:bg-gray-200">
-        <div class="shrink w-full">
+      <li v-for="(player, index) in store.players" :key="index" class="flex gap-2 h-16 border rounded p-2 my-2 odd:bg-gray-100 even:bg-gray-200 relative">
+        <OIcon v-if="player.type === 'hero'" color="medium-light" :icon="iconCrown" size="x-large" class="absolute top-2 right-2"/>
+        <OIcon v-if="player.type === 'monster'" color="medium-light" :icon="iconSkull" size="x-large" class="absolute top-2 right-2 z-10" />
+        <div class="shrink w-full z-50">
           <div class="grid grid-rows-2 gap-2">
             <div class="flex">
               <button @click="openEditPlayer(index)" class="capitalize font-bold flex gap-2">
@@ -18,7 +20,7 @@
             </div>
           </div>
         </div>
-        <div class="w-14 h-full flex items-center justify-center text-center text-2xl rounded bg-white/5 border-l border-t border-gray-400">
+        <div class="w-14 h-full flex items-center justify-center text-center text-2xl rounded bg-white/10 border-l border-t border-gray-400 z-40 font-semibold">
           <span v-if="editingIndex !== index" @click="editInitiative(index)">{{ player.initiative }}</span>
           <input v-else type="tel" v-model.number="newInitiative" @blur="saveInitiative(index)" @keyup.enter="saveInitiative(index)" class="w-full h-full rounded text-center bg-white/90 border-none focus:outline-none">
         </div>
@@ -32,7 +34,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useTurnOrderStore } from '~/stores/turnOrder'
-import { iconAccountEdit, iconDead, iconBlessed } from '~/assets/icons.js'
+import { iconAccountEdit, iconCrown, iconSkull } from '~/assets/icons.js'
 
 const store = useTurnOrderStore()
 const conditionsModal = ref(false)
