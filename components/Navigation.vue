@@ -1,7 +1,7 @@
 <template>
 <nav class="bg-gray-800">
-  <div class="mx-auto max-w-4xl px-4">
-    <div class="flex h-16 items-center justify-between">
+  <div class="mx-auto max-w-3xl px-4">
+    <div class="flex h-16 justify-end items-center flex-row-reverse">
       <div class="flex">
         <div class="shrink-0">
           <span href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
@@ -13,27 +13,19 @@
           <NavigationItems />
         </div>
       </div>
-      <div class="-mr-2 flex md:hidden">
+      <div class="flex md:hidden mr-4">
         <!-- Mobile menu button -->
-        <button @click="toggleMenu" type="button" class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-700 hover:text-white focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white" aria-controls="mobile-menu" aria-expanded="false">
-          <span class="absolute -inset-0.5"></span>
-          <span class="sr-only">Mellon</span>
-          <!--
-            Icon when menu is closed.
-
-            Menu open: "hidden", Menu closed: "block"
-          -->
-          <svg class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-          <!--
-            Icon when menu is open.
-
-            Menu open: "block", Menu closed: "hidden"
-          -->
-          <svg class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-slot="icon">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18 18 6M6 6l12 12" />
-          </svg>
+        <button @click="toggleMenu" value="hamburger" class="flex flex-col justify-around h-8 w-8 p-1 rounded">
+          <!-- Hamburger Icon (3 lines) -->
+          <span 
+          :class="{ 'translate-y-3 -rotate-45': isMenuOpen }"
+          class="h-0.5 rounded duration-100 bg-gray-400 w-full"></span>
+          <span 
+          :class="{ 'opacity-0': isMenuOpen }"
+          class="h-0.5 rounded duration-100 bg-gray-400 w-full"></span>
+          <span 
+          :class="{ '-translate-y-1 rotate-45': isMenuOpen }"
+          class="h-0.5 rounded duration-100 bg-gray-400 w-full"></span>
         </button>
       </div>
     </div>
