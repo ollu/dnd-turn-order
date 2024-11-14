@@ -6,7 +6,8 @@
         <div class="shrink-0">
           <span href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
             <img src="../assets/dragon.png" class="w-12 h-12" alt="">
-            <h1 class="text-xl text-blood font-semibold text-center ml-4 capitalize">Cavemen turn order</h1>
+            <img src="../assets/logo-text.png" class="w-48 h-full" alt="">
+            <!--h1 class="text-xl text-blood font-semibold text-center ml-4 capitalize">Cavemen turn order</h1-->
           </span>
         </div>
         <div class="hidden md:ml-4 md:flex flex-row">
