@@ -12,6 +12,15 @@ module.exports = {
       colors: {
         blood: "#D80000",
       },
+      animation: {
+        grow: "grow 0.15s ease-in-out forwards",
+      },
+      keyframes: {
+        grow: {
+          "0%": { transform: "scale(0)", "transform-origin": "right" },
+          "100%": { transform: "scale(1)", "transform-origin": "right" },
+        },
+      },
     },
   },
   plugins: [],
