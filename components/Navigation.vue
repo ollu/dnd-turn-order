@@ -5,8 +5,8 @@
       <div class="flex">
         <div class="shrink-0">
           <span href="#" class="flex items-center space-x-3 rtl:space-x-reverse">
-            <img src="../assets/dragon.png" class="w-12 h-12" alt="">
-            <img src="../assets/logo-text.png" class="w-48 h-full" alt="">
+            <img src="../assets/dragon.png" class="w-12 h-12 duration-75" :class="{ '-scale-x-100 duration-75 rotate-45': isMenuOpen }">
+            <img src="../assets/logo-text.png" class="w-48 h-full">
             <!--h1 class="text-xl text-blood font-semibold text-center ml-4 capitalize">Cavemen turn order</h1-->
           </span>
         </div>
