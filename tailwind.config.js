@@ -13,7 +13,7 @@ module.exports = {
         blood: "#D80000",
       },
       animation: {
-        grow: "grow 0.15s ease-in-out forwards",
+        grow: "grow 0.2s ease-in-out forwards",
       },
       keyframes: {
         grow: {

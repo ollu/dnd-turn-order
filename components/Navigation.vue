@@ -5,7 +5,7 @@
       <div class="flex">
         <div class="shrink-0">
           <span href="#" class="flex items-center rtl:space-x-reverse relative">
-            <img src="../assets/breath.svg" :class="[isMenuOpen ? 'w-10 h-10 absolute top-4 -left-8 animate-grow-right-to-left delay-500' : 'hidden' ]">
+            <img src="../assets/breath.svg" :class="[isMenuOpen ? 'w-10 h-10 absolute top-4 -left-8 animate-grow z-0' : 'hidden' ]">
             <img src="../assets/dragon.png" class="w-12 h-12 duration-75" :class="{ '-scale-x-100 duration-75 rotate-45': isMenuOpen }">
             <img src="../assets/logo-text.png" class="w-48 h-full ml-4">
             <!--h1 class="text-xl text-blood font-semibold text-center ml-4 capitalize">Cavemen turn order</h1-->
@@ -15,7 +15,7 @@
           <NavigationItems />
         </div>
       </div>
-      <div class="flex md:hidden mr-4">
+      <div class="flex md:hidden mr-4 z-10">
         <!-- Mobile menu button -->
         <button @click="toggleMenu" value="hamburger" class="flex flex-col justify-around h-8 w-8 p-1 rounded">
           <!-- Hamburger Icon (3 lines) -->
