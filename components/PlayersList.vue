@@ -2,7 +2,9 @@
   <div class="mx-auto max-w-2xl">
     <ul class="mx-2 md:mx-4">
       <li v-for="(player, index) in store.players" :key="index" class="flex gap-2 h-16 border rounded p-2 my-2 odd:bg-gray-100 even:bg-gray-200 relative">
-        <OIcon v-if="player.conditions.includes('Dead')" color="dark" :icon="iconTombStone" size="x-large"/>
+        <div v-if="player.conditions.includes('Dead')" class="animate-rise grid grid-flow-row">
+          <OIcon color="medium" :icon="iconTombStone" size="x-large"/>
+        </div>
         <div class="shrink w-full z-50">
           <div class="grid grid-rows-2 gap-2">
             <div class="flex">
@@ -74,3 +76,23 @@ function saveInitiative(index) {
 }
 
 </script>
+<style scoped>
+.bounce-enter-active {
+  animation: bounce-in 0.25s;
+  transition: opacity 0.25s;
+}
+.bounce-leave-active {
+  animation: bounce-in 0.25s reverse;
+}
+@keyframes bounce-in {
+  0% {
+    transform: scale(0);
+  }
+  50% {
+    transform: scale(1.10);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+</style>
