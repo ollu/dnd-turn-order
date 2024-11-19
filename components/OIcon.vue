@@ -31,6 +31,7 @@ const iconColors = {
   'medium-light': 'text-gray-300',
   'medium': 'text-gray-500',
   'dark': 'text-gray-800',
+  'hero': 'text-yellow-500',
 }
 
 const iconClass = computed(() => {

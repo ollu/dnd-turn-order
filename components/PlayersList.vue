@@ -6,9 +6,9 @@
         <div class="shrink w-full z-50">
           <div class="grid grid-rows-2 gap-2">
             <div class="flex">
-              <button @click="openEditPlayer(index)" class="capitalize font-bold flex">
-                <OIcon v-if="player.type === 'hero'" color="medium" size="normal" :icon="iconCrown" />
-                <OIcon v-if="player.type === 'monster'" color="medium" size="normal" :icon="iconSkull" />
+              <button @click="openEditPlayer(index)" class="capitalize font-bold flex items-center gap-1">
+                <OIcon v-if="player.type === 'hero'" color="hero" size="small" :icon="iconPacman" />
+                <OIcon v-if="player.type === 'monster'" color="dark" size="small" :icon="iconGhost" />
                 {{ player.name }}
               </button>
             </div>
@@ -34,7 +34,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useTurnOrderStore } from '~/stores/turnOrder'
-import { iconCrown, iconSkull, iconTombStone } from '~/assets/icons.js'
+import { iconGhost, iconPacman, iconTombStone } from '~/assets/icons.js'
 
 const store = useTurnOrderStore()
 const conditionsModal = ref(false)
