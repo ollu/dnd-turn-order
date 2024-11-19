@@ -22,7 +22,7 @@
             </div>
           </div>
         </div>
-        <div class="w-14 h-full flex items-center justify-center text-center text-2xl rounded bg-white/10 border-l border-t border-gray-400 z-40 font-semibold">
+        <div class="shrink-0 w-14 h-full flex items-center justify-center text-center text-2xl rounded bg-white/10 border-l border-t border-gray-400 z-40 font-semibold">
           <span v-if="editingIndex !== index" @click="editInitiative(index)">{{ player.initiative }}</span>
           <input v-else type="tel" v-model.number="newInitiative" @blur="saveInitiative(index)" @keyup.enter="saveInitiative(index)" class="w-full h-full rounded text-center bg-white/90 border-none focus:outline-none">
         </div>
