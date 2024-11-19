@@ -2,20 +2,20 @@
   <div class="mx-auto max-w-2xl">
     <ul class="mx-2 md:mx-4">
       <li v-for="(player, index) in store.players" :key="index" class="flex gap-2 h-16 border rounded p-2 my-2 odd:bg-gray-100 even:bg-gray-200 relative">
-        <OIcon v-if="player.type === 'hero'" color="medium-light" :icon="iconCrown" size="x-large" class="absolute top-2 right-2"/>
-        <OIcon v-if="player.type === 'monster'" color="medium-light" :icon="iconSkull" size="x-large" class="absolute top-2 right-2 z-10" />
+        <OIcon v-if="player.conditions.includes('Dead')" color="dark" :icon="iconTombStone" size="x-large"/>
         <div class="shrink w-full z-50">
           <div class="grid grid-rows-2 gap-2">
             <div class="flex">
-              <button @click="openEditPlayer(index)" class="capitalize font-bold flex gap-2">
-                <OIcon color="medium" :icon="iconAccountEdit" />
+              <button @click="openEditPlayer(index)" class="capitalize font-bold flex">
+                <OIcon v-if="player.type === 'hero'" color="medium" size="normal" :icon="iconCrown" />
+                <OIcon v-if="player.type === 'monster'" color="medium" size="normal" :icon="iconSkull" />
                 {{ player.name }}
               </button>
             </div>
             <div class="text-xs uppercase">
               <button @click="openConditionsModal(index)" class="uppercase text-gray-400"><span class="text-sm font-semibold">+</span>Cond:</button>
               <span v-if="player.conditions.length > 0">
-                <span v-for="condition in player.conditions" :key="condition" class="pr-1">&nbsp;{{ condition }}</span>
+                <span v-for="condition in player.conditions.filter(c => c !== 'Dead')" :key="condition" class="pr-1">&nbsp;{{ condition }}</span>
               </span>
             </div>
           </div>
@@ -34,7 +34,7 @@
 <script setup>
 import { ref } from 'vue'
 import { useTurnOrderStore } from '~/stores/turnOrder'
-import { iconAccountEdit, iconCrown, iconSkull } from '~/assets/icons.js'
+import { iconCrown, iconSkull, iconTombStone } from '~/assets/icons.js'
 
 const store = useTurnOrderStore()
 const conditionsModal = ref(false)
