@@ -35,6 +35,7 @@ const fumbleChart = ref(fumbleChartPlayer)
 
 function switchChart() {
   fumbleChart.value = fumbleChart.value.type === "monster" ? fumbleChartPlayer : fumbleChartMonster
+  roll.value = 666
 }
 
 function rollDice() {
