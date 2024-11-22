@@ -7,8 +7,7 @@
           <span href="#" class="flex items-center rtl:space-x-reverse relative">
             <img src="../assets/breath.svg" :class="[isMenuOpen ? 'w-10 h-10 absolute top-4 -left-8 animate-grow z-0' : 'hidden' ]">
             <img src="../assets/dragon.png" class="w-12 h-12 duration-75" :class="{ '-scale-x-100 duration-75 rotate-45': isMenuOpen }">
-            <img src="../assets/logo-text.png" class="w-48 h-full ml-4">
-            <!--h1 class="text-xl text-blood font-semibold text-center ml-4 capitalize">Cavemen turn order</h1-->
+            <NuxtLink to="/" @click="closeMenu()"><img src="../assets/logo-text.png" class="w-48 h-full ml-4"></NuxtLink>
           </span>
         </div>
         <div class="hidden md:ml-4 md:flex flex-row">
@@ -45,6 +44,11 @@ const isMenuOpen = ref(false)
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value
 }
+
+function closeMenu() {
+  isMenuOpen.value = false
+}
+
 </script>
 <style scoped>
 @keyframes grow {
