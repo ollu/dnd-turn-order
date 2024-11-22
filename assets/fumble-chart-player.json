@@ -1,0 +1,30 @@
+{
+  "type": "player",
+  "descriptions": [
+    "All results including friends applies to fumbling player if no friends are close enough.",
+    "All results including dropping applies to unarmed attacks in same way, but its stays with player."
+  ],
+  "header": "Heroes",
+  "fumbles": [
+    "Overcharged. Hits self with normal effect.",
+    "Disastrous miss. Hits closest friend with normal effect.",
+    "Trip on your own weapon. Hit self with half effect.",
+    "Bad backswing. Hit closest friend with half effect.",
+    "Weapon flies away. Hit closest friend with 1D6 damage och drops weapon by friend.",
+    "Pushed back. Moves back one step. Cause opportunity attack.",
+    "Lose balance. Drops to ground and drops weapon in same square.",
+    "Drops weapon. 1d6 X 5 yards away 1d6 damage if creature in that space.",
+    "To heavy parry. Drops weapon or equipment into a square next to you.",
+    "Weak grip. Drops weapon or equipment into same square.",
+    "Crashes into friend. 1d6 blunt damage to you and closest friend.",
+    "Slips. Drops to ground in same square.",
+    "Out of sync. Miss further actions this turn and drops last in next turn.",
+    "Cutting or bruising yourself. Hit self with 1d6 damage of action type.",
+    "Crash into enemy. You and an enemy of your choice gets 1d6 each in blunt damage.",
+    "Trips into enemy. You and an enemy of your choice drops to the ground.",
+    "Entangled into enemy. You and an enemy of your choice both loses next action.",
+    "Out of sync. Your actions and attacks against you have disadvantage this and next turn.",
+    "Saved it... almost. Your action is successful however, roll again with 1d12 +5.",
+    "Miraculous save! You score a crit instead of missing and fumbling."
+  ]
+}

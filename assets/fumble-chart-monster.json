@@ -1,0 +1,31 @@
+{
+  "type": "monster",
+  "descriptions": [
+    "All results except 20 means no more actions this round after the fumble!",
+    "All results including ally applies to fumbling monster self if no allies are close enough.",
+    "All results including dropping applies to unarmed attacks in same way, but it stays with monster."
+  ],
+  "header": "Monsters",
+  "fumbles": [
+    "Hit self. Hard. Very hard. Hits self with crit effect.",
+    "Disastrous miss or lucky strike. Hits closest ally with crit effect.",
+    "Chunk of itself. Hits self with normal effect.",
+    "Grumble or fumble. Hits closest ally with normal effect.",
+    "Falls on weapon. Hit self with half effect.",
+    "Wrong target. Hit closest ally with half effect.",
+    "Tripping into ally. Monster and a hero of DMs choice drops to the ground.",
+    "Weapon leaves hand or claw. Hit closest ally with 1D6 och drops weapon there.",
+    "Stumble. Moves 1 square back and triggers opportunity attacks.",
+    "Flimsy footwork. Drops to ground and drops weapon in same square.",
+    "Weapon takes off. 1d6 X 5 yards away. 1d6 damage to creature if in that space.",
+    "Weapon kick away. Drops weapon or equipment into a square next to monster.",
+    "Simply disarmed. Drops weapon or equipment into same square as monster.",
+    "Crash into floor. Monster gets 1d6 in damage and falls in same square.",
+    "Slips. Drops to ground in same square.",
+    "Entangled into ally. Monster and ally of DMs choice both loses this and next action.",
+    "Cutting or bruising itself. Hit self with 1d6 damage.",
+    "Uncontrolled fall. Drops to ground one square away. Cause no opportunity attack.",
+    "Losing concept. Monster actions and attacks on it hade disadvantage next turn.",
+    "Miraculous save! Monster score a success but rolls again on the chart, rerolling a 20."
+  ]
+}
