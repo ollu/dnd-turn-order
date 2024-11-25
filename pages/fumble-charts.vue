@@ -1,5 +1,5 @@
 <template>
-  <div class="mx-4">
+  <div class="mx-auto max-w-xl">
     <h1 class="text-4xl text-center mt-6">{{ fumbleChart.header }}</h1>
     <div class="w-48 m-auto my-10">
       <div class="grid grid-cols-2 gap-4">
@@ -17,7 +17,7 @@
       </button>
       </div>
     </div>
-    <p class="my-4 text-xl border-blood bg-slate-300 rounded-md p-4 h-32 mb-10">
+    <p class="grid content-center my-4 text-xl sm:rounded-md bg-slate-300 p-4 h-32 mb-10">
       <span v-if="showFumble">{{ fumbleChart.fumbles[roll-1] }}</span>
     </p>
     <ul v-for="(description, index) in fumbleChart.descriptions" :key="index">
