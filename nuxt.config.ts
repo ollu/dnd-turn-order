@@ -101,8 +101,12 @@ export default defineNuxtConfig({
         registerType: "autoUpdate",
       },
     ],
+    "@nuxtjs/supabase",
   ],
-
+  supabase: {
+    // needed to control access via auth.global.js
+    redirect: true,
+  },
   pwa: {
     manifest: {
       name: "Turn Order",
@@ -138,7 +142,7 @@ export default defineNuxtConfig({
     },
     workbox: {},
     devOptions: {
-      enabled: true,
+      enabled: false,
     },
   },
 });

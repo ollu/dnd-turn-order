@@ -5,5 +5,4 @@
       <NuxtPage />
     </main>
   </div>
-  <OFooter />
 </template>

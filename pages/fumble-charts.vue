@@ -32,6 +32,9 @@ const roll = ref(666)
 const showFumble = ref(false)
 const isActive = ref(true)
 const fumbleChart = ref(fumbleChartPlayer)
+definePageMeta({
+  layout: 'fumble-chart',
+})
 
 function switchChart() {
   fumbleChart.value = fumbleChart.value.type === "monster" ? fumbleChartPlayer : fumbleChartMonster
