@@ -18,13 +18,15 @@
       </ul>
     </div>
   </main>
-  <footer class="bg-slate-800 p-2 grid grid-cols-2 gap-4 min-h-24">
-    <button @click="rollDice" class="btn-large" :class="[isActive ? 'primary' : 'secondary' ]" :disabled="!isActive">
-      Roll d20
-    </button>
-    <button @click="switchChart" class="btn-large bg-slate-600 text-white">
-      Switch to {{ fumbleChart.type === "monster" ? "Heroes" : "Monsters" }}
-    </button>
+  <footer class="fixed bottom-0 left-0 z-50 w-full h-20 border-t bg-gray-800 border-gray-700">
+    <div class="grid grid-cols-2 gap-2 h-full p-2">
+      <button @click="rollDice" class="btn-large" :class="[isActive ? 'primary' : 'secondary' ]" :disabled="!isActive">
+        Roll d20
+      </button>
+      <button @click="switchChart" class="btn-large bg-slate-600 text-white">
+        Switch to {{ fumbleChart.type === "monster" ? "Heroes" : "Monsters" }}
+      </button>
+    </div>
   </footer>
 </template>
 <script setup>
