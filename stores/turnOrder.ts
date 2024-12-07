@@ -10,8 +10,12 @@ export const useTurnOrderStore = defineStore('turnOrder', {
   state: () => ({
     players: [] as Player[],
     turnCounter: 0,
+    conditions: [] as string[],
   }),
   actions: {
+    addCondition(conditions: []) {
+      this.conditions = conditions
+    },
     addPlayer(player: Player) {
       this.players.push({ ...player, conditions: [] })
       this.sortPlayers()
