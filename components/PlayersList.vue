@@ -2,7 +2,7 @@
   <div class="mx-auto max-w-2xl">
     <ul class="mx-2 md:mx-4">
       <li v-for="(player, index) in store.players" :key="index" class="flex gap-2 h-16 border rounded p-2 my-2 odd:bg-gray-100 even:bg-gray-200 relative">
-        <div v-if="player.conditions.includes('Dead')" class="animate-rise grid grid-flow-row">
+        <div v-if="isDead(player.conditions)" class="animate-rise grid grid-flow-row">
           <OIcon color="medium" :icon="iconTombStone" size="x-large"/>
         </div>
         <div class="shrink w-full z-50">
@@ -17,7 +17,7 @@
             <div class="text-xs uppercase">
               <button @click="openConditionsModal(index)" class="uppercase text-gray-400"><span class="text-sm font-semibold">+</span>Cond:</button>
               <span v-if="player.conditions.length > 0">
-                <span v-for="condition in player.conditions.filter(c => c !== 'Dead')" :key="condition" class="pr-1">&nbsp;{{ condition }}</span>
+                <span v-for="condition in player.conditions.filter(c => c.name !== 'Dead')" :key="condition.id" class="pr-1">&nbsp;{{ condition.name }}</span>
               </span>
             </div>
           </div>
@@ -69,10 +69,17 @@ function editInitiative(index) {
 }
 
 function saveInitiative(index) {
-  store.players[index].initiative = newInitiative.value
-  store.sortPlayers()
-  store.saveToLocalStorage()
+  if (parseInt(newInitiative.value)) {
+    store.players[index].initiative = newInitiative.value
+    store.sortPlayers()
+    store.saveToLocalStorage()
+  }
+
   editingIndex.value = null
+}
+
+function isDead(conditions) {
+  return conditions.some(c => c.name === 'Dead')
 }
 
 </script>
