@@ -3,7 +3,7 @@ interface Player {
   name: string
   initiative: number
   conditions: string[]
-  type: string
+  isHero: boolean
 }
 
 export const useTurnOrderStore = defineStore('turnOrder', {
@@ -23,12 +23,12 @@ export const useTurnOrderStore = defineStore('turnOrder', {
     },
     deleteAllHeroes() {
       // Remove all players that are heroes.
-      this.players = this.players.filter((player) => player.type === "monster");
+      this.players = this.players.filter((player) => !player.isHero);
       this.saveToLocalStorage()
     },
     deleteAllMonsters() {
       // Remove all players that are NOT heroes.
-      this.players = this.players.filter((player) => player.type === "hero");
+      this.players = this.players.filter((player) => player.isHero);
       this.saveToLocalStorage()
     },
     removePlayer(index: number) {
