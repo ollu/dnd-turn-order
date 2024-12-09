@@ -9,8 +9,8 @@
           <div class="grid grid-rows-2 gap-2">
             <div class="flex">
               <button @click="openEditPlayer(index)" class="capitalize font-bold flex items-center gap-1">
-                <OIcon v-if="player.type === 'hero'" color="hero" size="small" :icon="iconPacman" />
-                <OIcon v-if="player.type === 'monster'" color="dark" size="small" :icon="iconGhost" />
+                <OIcon v-if="player.isHero" color="hero" size="small" :icon="iconPacman" />
+                <OIcon v-if="!player.isHero" color="dark" size="small" :icon="iconGhost" />
                 {{ player.name }}
               </button>
             </div>
@@ -35,10 +35,9 @@
 
 <script setup>
 import { ref } from 'vue'
-import { useTurnOrderStore } from '~/stores/turnOrder'
 import { iconGhost, iconPacman, iconTombStone } from '~/assets/icons.js'
 
-const store = useTurnOrderStore()
+const store = useSupabaseStore()
 const conditionsModal = ref(false)
 const editModal = ref(false)
 const currentPlayerIndex = ref(null)
@@ -69,6 +68,7 @@ function editInitiative(index) {
 }
 
 function saveInitiative(index) {
+  // Only save if the value is a number
   if (parseInt(newInitiative.value)) {
     store.players[index].initiative = newInitiative.value
     store.sortPlayers()

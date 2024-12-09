@@ -7,10 +7,17 @@ interface Player {
 }
 
 export const useSupabaseStore = defineStore("supabase", () => {
-  const supabase = useSupabaseClient();
+  const supabase = useSupabaseClient()
+  const players = ref<Player | null>(null)
 
   async function addPlayer(player: Player) {
-    const { data, error } = await supabase.from("fight").insert(player);
+    const { data, error } = await supabase
+      .from('turnOrder')
+      .insert([
+        { name: player.name, initiative: player.initiative, isHero: player.isHero },
+      ])
+      .select();
+          
     if (error) {
       console.error("Error adding player", error);
     }
@@ -25,8 +32,19 @@ export const useSupabaseStore = defineStore("supabase", () => {
     return data;
   }
 
+  async function loadTurnOrder() {
+    const { data, error } = await supabase.from("turnOrder").select("*");
+    if (error) {
+      console.error("Error loading turn order", error);
+      return null
+    }
+    
+    return data
+  }
+
   return {
-    loadConditions,
     addPlayer,
+    loadConditions,
+    loadTurnOrder,
   };
 })
