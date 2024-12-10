@@ -59,8 +59,6 @@ export const useSupabaseStore = defineStore('supabase', () => {
   }
 
   function getPlayerById(id: number) {
-    console.log(players.value);
-    
     return players.value.find((player) => player.id === id);
   }
 
@@ -79,7 +77,15 @@ export const useSupabaseStore = defineStore('supabase', () => {
     if (error) {
       console.error("Error updating player", error);
     }
+
+    // Update the players array with the new values from the updated player
+    const index = players.value.findIndex((p) => p.id === player.id)
     
+    if (index !== -1) {
+      players.value[index] = { ...player }
+    }
+
+    players.value.sort((a, b) => b.initiative - a.initiative)
   }
 
   return {
