@@ -23,7 +23,35 @@ export const useSupabaseStore = defineStore('supabase', () => {
     if (error) {
       console.error("Error adding player", error);
     }
+    
+    if (data) {
+      players.value.push(data[0])
+    }
+
+    sortPlayers()
   }
+
+  async function deletePlayer(id: number) {
+    const { data, error } = await supabase
+      .from('turnOrder')
+      .delete()
+      .match({ id: id })
+      .select();
+          
+    if (error) {
+      console.error("Error deleting player", error);
+    }
+
+    if (data) {
+      const index = players.value.findIndex((player) => player.id === id);
+      if (index !== -1) {
+        players.value.splice(index, 1);
+      }
+    }
+    
+    sortPlayers()
+  }
+
 
   async function loadConditions() {
     const { data, error } = await supabase.from("conditions").select("*");
@@ -40,7 +68,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
   }
 
   async function loadTurnOrder() {
-    const { data, error } = await supabase.from("turnOrder").select("*");
+    const { data, error } = await supabase.from("turnOrder").select("*").order("initiative", { ascending: false });
     if (error) {
       console.error("Error loading turn order", error);
       return null;
@@ -85,12 +113,17 @@ export const useSupabaseStore = defineStore('supabase', () => {
       players.value[index] = { ...player }
     }
 
-    players.value.sort((a, b) => b.initiative - a.initiative)
+    sortPlayers()
+  }
+
+  function sortPlayers() {
+    players.value.sort((a, b) => b.initiative - a.initiative);
   }
 
   return {
     addPlayer,
     conditions,
+    deletePlayer,
     getPlayerById,
     loadConditions,
     loadGameData,

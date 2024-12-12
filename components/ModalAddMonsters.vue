@@ -16,10 +16,9 @@
 </template>
 <script setup>
 import { ref } from 'vue'
-import { useTurnOrderStore } from '~/stores/turnOrder'
 
 const emit = defineEmits(["close"]);
-const store = useTurnOrderStore()
+const store = useSupabaseStore()
 const monsterName = ref("")
 const monsterNameRef = ref(null)
 const initiative = ref(0)
@@ -29,21 +28,21 @@ onMounted(() => {
   nextTick(() => monsterNameRef.value.focus())
 })
 
-function addMonster() {
+function addMonster(reFocus = true) {
   if (!monsterName.value) {
     noName.value = true
     return
   }
 
-  store.addPlayer({name: monsterName.value, initiative: initiative.value, type: "monster"});
+  store.addPlayer({name: monsterName.value, initiative: initiative.value, isHero: false })
   monsterName.value = ""
   initiative.value = 0
   noName.value = false
-  nextTick(() => monsterNameRef.value.focus())
+  if (reFocus) nextTick(() => monsterNameRef.value.focus())
 }
 
 function addMonsterAndClose() {
-  if (monsterName.value) addMonster()
+  if (monsterName.value) addMonster(false)
   closeModal()
 }
 
