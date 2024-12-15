@@ -121,7 +121,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
   }
 
   function subscribeToTurnOrderChanges() {
-    supabase
+    const subscription = supabase
       .channel("public:turnOrder")
       .on(
         "postgres_changes",
@@ -157,6 +157,8 @@ export const useSupabaseStore = defineStore('supabase', () => {
         }
       )
       .subscribe();
+
+    return subscription;
   }
 
   return {
