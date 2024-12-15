@@ -24,10 +24,6 @@ export const useSupabaseStore = defineStore('supabase', () => {
     if (error) {
       console.error("Error adding player", error);
     }
-    
-    if (data) {
-      players.value.push(data[0])
-    }
 
     sortPlayers()
   }
@@ -38,6 +34,36 @@ export const useSupabaseStore = defineStore('supabase', () => {
     if (turnCounter.value < 0) {
       turnCounter.value = 0
     }
+  }
+
+  async function deleteAllHeroes() {
+    const { data, error } = await supabase
+      .from("turnOrder")
+      .delete()
+      .match({ isHero: true })
+      .select();
+
+    if (error) {
+      console.error("Error deleting player", error);
+    }
+
+    // Remove all players that are heroes.
+    // players.value = players.value.filter((player) => !player.isHero);
+  }
+
+  async function deleteAllMonsters() {
+    const { data, error } = await supabase
+      .from("turnOrder")
+      .delete()
+      .match({ isHero: false })
+      .select();
+
+    if (error) {
+      console.error("Error deleting player", error);
+    }
+
+    // Remove all players that are NOT heroes.
+    players.value = players.value.filter((player) => player.isHero);
   }
 
   async function deletePlayer(id: number) {
@@ -60,7 +86,6 @@ export const useSupabaseStore = defineStore('supabase', () => {
     
     sortPlayers()
   }
-
 
   async function loadConditions() {
     const { data, error } = await supabase.from("conditions").select("*");
@@ -93,6 +118,26 @@ export const useSupabaseStore = defineStore('supabase', () => {
   async function loadGameData() {
     await loadConditions();
     await loadTurnOrder();
+  }
+
+  async function ResetInitiative() {
+    const { data, error } = await supabase
+      .from("turnOrder")
+      .update({ initiative: 0 })
+      .match({ isHero: true })
+      .select();
+
+    if (error) {
+      console.error("Error resetting initiative", error);
+    }
+
+    players.value.forEach((player) => {
+      player.initiative = 0;
+    });
+  }
+
+  function resetTurnCounter() {
+    turnCounter.value = 0
   }
 
   function getPlayerById(id: number) {
@@ -174,12 +219,16 @@ export const useSupabaseStore = defineStore('supabase', () => {
     addPlayer,
     changeTurn,
     conditions,
+    deleteAllHeroes,
+    deleteAllMonsters,
     deletePlayer,
     getPlayerById,
     loadConditions,
     loadGameData,
     loadTurnOrder,
     players,
+    ResetInitiative,
+    resetTurnCounter,
     subscribeToTurnOrderChanges,
     turnCounter,
     updatePlayer,
