@@ -120,6 +120,45 @@ export const useSupabaseStore = defineStore('supabase', () => {
     players.value.sort((a, b) => b.initiative - a.initiative);
   }
 
+  function subscribeToTurnOrderChanges() {
+    supabase
+      .channel("public:turnOrder")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "turnOrder" },
+        (payload) => {
+          console.log("Change received!", payload);
+          const newPlayer = payload.new as Player;
+          const oldPlayer = payload.old as Player;
+
+          switch (payload.eventType) {
+            case "INSERT":
+              players.value.push(newPlayer);
+              sortPlayers();
+              break;
+            case "UPDATE":
+              const index = players.value.findIndex(
+                (p) => p.id === newPlayer.id
+              );
+              if (index !== -1) {
+                players.value[index] = newPlayer;
+              }
+              sortPlayers();
+              break;
+            case "DELETE":
+              const deleteIndex = players.value.findIndex(
+                (p) => p.id === oldPlayer.id
+              );
+              if (deleteIndex !== -1) {
+                players.value.splice(deleteIndex, 1);
+              }
+              break;
+          }
+        }
+      )
+      .subscribe();
+  }
+
   return {
     addPlayer,
     conditions,
@@ -129,6 +168,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
     loadGameData,
     loadTurnOrder,
     players,
+    subscribeToTurnOrderChanges,
     updatePlayer,
   };
 })

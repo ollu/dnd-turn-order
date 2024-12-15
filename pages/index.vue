@@ -18,6 +18,7 @@ onMounted(async () => {
   if (store.players.length === 0) {
     await store.loadGameData()
   }
+  store.subscribeToTurnOrderChanges()
 })
 
 </script>
