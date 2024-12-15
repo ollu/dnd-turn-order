@@ -181,7 +181,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
         "postgres_changes",
         { event: "*", schema: "public", table: "turnOrder" },
         (payload) => {
-          console.log("Change received!", payload);
+          // console.log("Change received!", payload);
           const newPlayer = payload.new as Player;
           const oldPlayer = payload.old as Player;
 
