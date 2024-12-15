@@ -11,6 +11,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
   const supabase = useSupabaseClient()
   const players = ref<Player[]>([])
   const conditions = ref<string[]>([])
+  const turnCounter = ref(0)
 
   async function addPlayer(player: Player) {
     const { data, error } = await supabase
@@ -29,6 +30,14 @@ export const useSupabaseStore = defineStore('supabase', () => {
     }
 
     sortPlayers()
+  }
+
+  function changeTurn(value: number) {
+    turnCounter.value += value
+
+    if (turnCounter.value < 0) {
+      turnCounter.value = 0
+    }
   }
 
   async function deletePlayer(id: number) {
@@ -163,6 +172,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
 
   return {
     addPlayer,
+    changeTurn,
     conditions,
     deletePlayer,
     getPlayerById,
@@ -171,6 +181,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
     loadTurnOrder,
     players,
     subscribeToTurnOrderChanges,
+    turnCounter,
     updatePlayer,
   };
 })

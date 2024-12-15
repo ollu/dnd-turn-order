@@ -34,7 +34,6 @@
 </template>
 
 <script setup>
-import { useTurnOrderStore } from '~/stores/turnOrder'
 import { ref } from 'vue'
 import OButton from '~/components/OButton.vue'
 import OIcon from './OIcon.vue'
@@ -42,7 +41,7 @@ import ModalAddMonsters from './ModalAddMonsters.vue'
 import ModalAddHeroes from './ModalAddHeroes.vue'
 import { iconGhost, iconPacman } from '~/assets/icons'
 
-const store = useTurnOrderStore()
+const store = useSupabaseStore()
 const monsterModal = ref(false)
 const heroModal = ref(false)
 
