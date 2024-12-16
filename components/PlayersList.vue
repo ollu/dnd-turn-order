@@ -5,23 +5,22 @@
         <div v-if="isDead(player.conditions)" class="animate-rise grid grid-flow-row">
           <OIcon color="medium" :icon="iconTombStone" size="x-large"/>
         </div>
-        <div class="shrink w-full z-50">
-          <div class="grid grid-rows-2 gap-2">
+        <div @click="openEditPlayer(player.id)" class="shrink w-full z-50 cursor-pointer">
+          <div class="grid gap-2">
             <div class="flex">
-              <button @click="openEditPlayer(player.id)" class="capitalize font-bold flex items-center gap-1">
+              <span class="capitalize font-bold flex items-center gap-1">
                 <OIcon v-if="player.isHero" color="hero" size="small" :icon="iconPacman" />
                 <OIcon v-if="!player.isHero" color="dark" size="small" :icon="iconGhost" />
                 {{ player.name }}
-              </button>
-            </div>
-            <div class="text-xs uppercase">
-              <span v-if="player.conditions.length > 0">
-                <span v-for="(condition, index) in player.conditions.filter(c => c !== 'Dead')" :key="index" class="pr-1">&nbsp;{{ condition }}</span>
               </span>
             </div>
+            <div v-if="player.conditions.length > 0" class="text-xs uppercase">
+              <span v-for="(condition, index) in player.conditions.filter(c => c !== 'Dead')" :key="index" class="pr-1">&nbsp;{{ condition }}</span>
+            </div>
+            <div v-else class="text-xs uppercase text-gray-300">No conditions</div>
           </div>
         </div>
-        <div class="shrink-0 w-14 h-full flex items-center justify-center text-center text-2xl rounded bg-white/10 border-l border-t border-gray-400 z-40 font-semibold">
+        <div class="shrink-0 w-14 h-full flex items-center justify-center text-center text-2xl rounded bg-white/10 border-l border-t border-gray-400 z-40 font-semibold cursor-pointer">
           <span v-if="editingIndex !== player.id" @click="editInitiative(player.id)">{{ player.initiative }}</span>
           <input v-else type="tel" v-model.number="newInitiative" @blur="saveInitiative(player.id)" @keyup.enter="saveInitiative(player.id)" class="w-full h-full rounded text-center bg-white/90 border-none focus:outline-none">
         </div>
