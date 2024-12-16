@@ -15,7 +15,8 @@ const userLogout = async () => {
 };
 
 function deleteAllHeroes() {
-  store.deleteAllHeroes()
+  let isHero = true
+  store.deletePlayersOfType(isHero)
   closeMenu()
 }
 
@@ -24,7 +25,8 @@ function closeMenu() {
 }
 
 function resetFight() {
-  store.deleteAllMonsters()
+  let isHero = false
+  store.deletePlayersOfType(isHero)
   store.ResetInitiative()
   closeMenu()
 }

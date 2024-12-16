@@ -34,23 +34,11 @@ export const useSupabaseStore = defineStore('supabase', () => {
     }
   }
 
-  async function deleteAllHeroes() {
+  async function deletePlayersOfType(isHero: boolean = true) {
     const { data, error } = await supabase
       .from("turnOrder")
       .delete()
-      .match({ isHero: true })
-      .select();
-
-    if (error) {
-      console.error("Error deleting player", error);
-    }
-  }
-
-  async function deleteAllMonsters() {
-    const { data, error } = await supabase
-      .from("turnOrder")
-      .delete()
-      .match({ isHero: false })
+      .match({ isHero: isHero })
       .select();
 
     if (error) {
@@ -58,7 +46,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
     }
   }
 
-  async function deletePlayer(id: number) {
+  async function deletePlayerById(id: number) {
     const { data, error } = await supabase
       .from('turnOrder')
       .delete()
@@ -204,9 +192,8 @@ export const useSupabaseStore = defineStore('supabase', () => {
     addPlayer,
     changeTurn,
     conditions,
-    deleteAllHeroes,
-    deleteAllMonsters,
-    deletePlayer,
+    deletePlayersOfType,
+    deletePlayerById,
     getPlayerById,
     loadConditions,
     loadGameData,

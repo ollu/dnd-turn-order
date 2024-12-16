@@ -55,7 +55,7 @@ onMounted(() => {
 })
 
 function deletePlayer() {
-  store.deletePlayer(props.playerID)
+  store.deletePlayerById(props.playerID)
   closeModal()
 }
 
