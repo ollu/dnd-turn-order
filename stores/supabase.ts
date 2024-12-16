@@ -24,8 +24,6 @@ export const useSupabaseStore = defineStore('supabase', () => {
     if (error) {
       console.error("Error adding player", error);
     }
-
-    sortPlayers()
   }
 
   function changeTurn(value: number) {
@@ -46,9 +44,6 @@ export const useSupabaseStore = defineStore('supabase', () => {
     if (error) {
       console.error("Error deleting player", error);
     }
-
-    // Remove all players that are heroes.
-    // players.value = players.value.filter((player) => !player.isHero);
   }
 
   async function deleteAllMonsters() {
@@ -59,11 +54,8 @@ export const useSupabaseStore = defineStore('supabase', () => {
       .select();
 
     if (error) {
-      console.error("Error deleting player", error);
+      console.error("Error deleting monster", error);
     }
-
-    // Remove all players that are NOT heroes.
-    players.value = players.value.filter((player) => player.isHero);
   }
 
   async function deletePlayer(id: number) {
@@ -76,15 +68,6 @@ export const useSupabaseStore = defineStore('supabase', () => {
     if (error) {
       console.error("Error deleting player", error);
     }
-
-    if (data) {
-      const index = players.value.findIndex((player) => player.id === id);
-      if (index !== -1) {
-        players.value.splice(index, 1);
-      }
-    }
-    
-    sortPlayers()
   }
 
   function getPlayerById(id: number) {
@@ -213,13 +196,6 @@ export const useSupabaseStore = defineStore('supabase', () => {
     if (error) {
       console.error("Error updating player", error);
     }
-
-    // // Update the players array with the new values from the updated player
-    // const index = players.value.findIndex((p) => p.id === player.id);
-
-    // if (index !== -1) {
-    //   players.value[index] = { ...player };
-    // }
 
     sortPlayers();
   }
