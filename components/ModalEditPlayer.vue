@@ -7,6 +7,7 @@
       <p v-if="noName" class="text-blood text-sm pl-2">No fantasy, maybe <em>Stupid</em> could work?</p>
       <label for="hero-initiative" class="mt-2 pl-2 block text-sm font-medium text-gray-900">Initiative</label>
       <input v-model="initiative" @keyup.enter="updatePlayer" type="tel" id="hero-initiative" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
+      <Conditions :playerID="playerID" @update:conditions="handleSelectedConditions" />
     </template>
     <template #footer>
       <button class="btn secondary" @click="deletePlayer">Delete player</button>
@@ -29,6 +30,7 @@ const heroName = ref("")
 const initiative = ref(0)
 const noName = ref(false)
 const player = ref(null)
+const selectedConditions = ref([])
 
 function updatePlayer() {
   if (!heroName.value) {
@@ -40,7 +42,7 @@ function updatePlayer() {
     id: props.playerID, 
     name: heroName.value, 
     initiative: initiative.value,
-    conditions: player.value.conditions,
+    conditions: [...selectedConditions.value],
     isHero: player.value.isHero
   })
   noName.value = false
@@ -53,6 +55,11 @@ onMounted(() => {
   heroName.value = player.value.name
   initiative.value = player.value.initiative
 })
+
+
+function handleSelectedConditions(conditions) {
+  selectedConditions.value = conditions
+}
 
 function deletePlayer() {
   store.deletePlayerById(props.playerID)

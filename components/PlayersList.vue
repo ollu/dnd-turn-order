@@ -15,7 +15,6 @@
               </button>
             </div>
             <div class="text-xs uppercase">
-              <button @click="openConditionsModal(player.id)" class="uppercase text-gray-400"><span class="text-sm font-semibold">+</span>Cond:</button>
               <span v-if="player.conditions.length > 0">
                 <span v-for="(condition, index) in player.conditions.filter(c => c !== 'Dead')" :key="index" class="pr-1">&nbsp;{{ condition }}</span>
               </span>
@@ -28,7 +27,6 @@
         </div>
       </li>
     </ul>
-    <ModalConditions v-if="conditionsModal" :playerID="currentPlayerIndex" @close="closeConditionsModal"/>
     <ModalEditPlayer v-if="editModal" :playerID="currentPlayerIndex" @close="closeEditModal"/>
   </div>
 </template>
@@ -38,16 +36,10 @@ import { ref } from 'vue'
 import { iconGhost, iconPacman, iconTombStone } from '~/assets/icons.js'
 
 const store = useSupabaseStore()
-const conditionsModal = ref(false)
 const editModal = ref(false)
 const currentPlayerIndex = ref(null)
 const editingIndex = ref(null)
 const newInitiative = ref(0)
-
-function openConditionsModal(index) {
-  currentPlayerIndex.value = index
-  conditionsModal.value = true
-}
 
 function openEditPlayer(index) {
   currentPlayerIndex.value = index
@@ -56,10 +48,6 @@ function openEditPlayer(index) {
 
 function closeEditModal() {
   editModal.value = false
-}
-
-function closeConditionsModal() {
-  conditionsModal.value = false
 }
 
 /**
