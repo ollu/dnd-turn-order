@@ -87,6 +87,10 @@ export const useSupabaseStore = defineStore('supabase', () => {
     sortPlayers()
   }
 
+  function getPlayerById(id: number) {
+    return players.value.find((player) => player.id === id);
+  }
+
   async function loadConditions() {
     const { data, error } = await supabase.from("conditions").select("*");
     if (error) {
@@ -101,6 +105,11 @@ export const useSupabaseStore = defineStore('supabase', () => {
     return data;
   }
 
+  async function loadGameData() {
+    await loadConditions();
+    await loadTurnOrder();
+  }
+
   async function loadTurnOrder() {
     const { data, error } = await supabase.from("turnOrder").select("*").order("initiative", { ascending: false });
     if (error) {
@@ -113,11 +122,6 @@ export const useSupabaseStore = defineStore('supabase', () => {
     }
 
     return data;
-  }
-
-  async function loadGameData() {
-    await loadConditions();
-    await loadTurnOrder();
   }
 
   async function ResetInitiative() {
@@ -138,36 +142,6 @@ export const useSupabaseStore = defineStore('supabase', () => {
 
   function resetTurnCounter() {
     turnCounter.value = 0
-  }
-
-  function getPlayerById(id: number) {
-    return players.value.find((player) => player.id === id);
-  }
-
-  async function updatePlayer(player: Player) {
-    const { data, error } = await supabase
-      .from("turnOrder")
-      .upsert({
-        id: player.id,
-        name: player.name,
-        conditions: player.conditions,
-        initiative: player.initiative,
-        isHero: player.isHero,
-      })
-      .select();
-
-    if (error) {
-      console.error("Error updating player", error);
-    }
-
-    // Update the players array with the new values from the updated player
-    const index = players.value.findIndex((p) => p.id === player.id)
-    
-    if (index !== -1) {
-      players.value[index] = { ...player }
-    }
-
-    sortPlayers()
   }
 
   function sortPlayers() {
@@ -213,6 +187,41 @@ export const useSupabaseStore = defineStore('supabase', () => {
       .subscribe();
 
     return subscription;
+  }
+
+  /**
+   * Change a value for the player in the database.
+   * 
+   * @param player <Player>
+   *   The player object to update
+   */
+  async function updatePlayer(player: Player) {
+    const conditionsString = `{${player.conditions
+      .map((condition) => `"${condition}"`)
+      .join(",")}}`;
+    const { data, error } = await supabase
+      .from("turnOrder")
+      .upsert({
+        id: player.id,
+        name: player.name,
+        conditions: conditionsString,
+        initiative: player.initiative,
+        isHero: player.isHero,
+      })
+      .select();
+
+    if (error) {
+      console.error("Error updating player", error);
+    }
+
+    // // Update the players array with the new values from the updated player
+    // const index = players.value.findIndex((p) => p.id === player.id);
+
+    // if (index !== -1) {
+    //   players.value[index] = { ...player };
+    // }
+
+    sortPlayers();
   }
 
   return {
