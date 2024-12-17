@@ -17,7 +17,7 @@
             <div v-if="player.conditions.length > 0" class="text-xs uppercase">
               <span v-for="(condition, index) in player.conditions.filter(c => c !== 'Dead')" :key="index" class="pr-1">&nbsp;{{ condition }}</span>
             </div>
-            <div v-else class="text-xs uppercase text-gray-300">No conditions</div>
+            <div v-else class="text-xs uppercase text-gray-400">No conditions</div>
           </div>
         </div>
         <div class="shrink-0 w-14 h-full flex items-center justify-center text-center text-2xl rounded bg-white/10 border-l border-t border-gray-400 z-40 font-semibold cursor-pointer">
