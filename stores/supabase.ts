@@ -55,8 +55,6 @@ export const useSupabaseStore = defineStore('supabase', () => {
   }
 
   async function deletePlayerById(id: number) {
-    console.log("Deleting player", id);
-    
     const { data, error } = await supabase
       .from("players")
       .delete()
@@ -87,7 +85,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
         )
       `
       )
-      .eq("uuid", user.value.id)
+      .match({uuid: user.value.id})
       .order("initiative", { referencedTable: "players", ascending: false })
       .single();
 
@@ -118,6 +116,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
   }
 
   async function loadGameData() {
+    await userHasGame();
     await fetchPlayersData();
     await loadConditions();
   }
@@ -193,10 +192,12 @@ export const useSupabaseStore = defineStore('supabase', () => {
     const conditionsString = `{${player.conditions
       .map((condition) => `"${condition}"`)
       .join(",")}}`;
+
     const { data, error } = await supabase
-      .from("turnOrder")
+      .from("players")
       .upsert({
         id: player.id,
+        games_id: gamesID.value,
         name: player.name,
         conditions: conditionsString,
         initiative: player.initiative,
@@ -209,6 +210,32 @@ export const useSupabaseStore = defineStore('supabase', () => {
     }
 
     sortPlayers();
+  }
+
+  async function userHasGame() {
+    const { data, error } = await supabase
+      .from("games")
+      .select("*")
+      .match({uuid: user.value.id});
+
+    if (error) {
+      console.error("Error checking for game", error);
+    }
+
+    if (data.length === 0) {
+      const { data, error } = await supabase
+        .from("games")
+        .insert([{ uuid: user.value.id }])
+        .select();
+
+      if (error) {
+        console.error("Error creating game", error);
+      } else {
+        gamesID.value = data[0].id;
+      }
+    } else {
+      gamesID.value = data[0].id;
+    }
   }
 
   return {
