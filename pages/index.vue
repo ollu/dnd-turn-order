@@ -14,18 +14,21 @@ import { onMounted } from 'vue'
 import { useSupabaseStore } from '~/stores/supabase'
 const store = useSupabaseStore()
 
-let subscription;
+let subscriptionPlayers;
+let subscriptionGame;
 
 onMounted(async () => {
   if (store.players.length === 0) {
     await store.loadGameData()
   }
-  subscription = store.subscribeToTurnOrderChanges()
+  subscriptionPlayers = store.subscribeToPlayersChanges()
+  subscriptionGame = store.subscribeToGameChanges()
 })
 
 onUnmounted(() => {
-  if (subscription) {
-    subscription.unsubscribe()
+  if (subscriptionPlayers && subscriptionGame) {
+    subscriptionPlayers.unsubscribe()
+    subscriptionGame.unsubscribe()
   }
 })
 </script>

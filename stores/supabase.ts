@@ -141,7 +141,32 @@ export const useSupabaseStore = defineStore('supabase', () => {
     players.value.sort((a, b) => b.initiative - a.initiative);
   }
 
-  function subscribeToTurnOrderChanges() {
+  function subscribeToGameChanges() {
+    const subscription = supabase
+      .channel("public:games")
+      .on(
+        "postgres_changes",
+        { event: "*", schema: "public", table: "games" },
+        (payload) => {
+          // console.log("Change received!", payload);
+          const newGame = payload.new as Game;
+
+          switch (payload.eventType) {
+            case "INSERT":
+              theGame.value = newGame;
+              break;
+            case "UPDATE":
+              theGame.value = newGame;
+              break;
+          }
+        }
+      )
+      .subscribe();
+
+    return subscription;
+  }
+
+  function subscribeToPlayersChanges() {
     const subscription = supabase
       .channel("public:players")
       .on(
@@ -247,7 +272,8 @@ export const useSupabaseStore = defineStore('supabase', () => {
     players,
     ResetInitiative,
     resetTurnCounter,
-    subscribeToTurnOrderChanges,
+    subscribeToGameChanges,
+    subscribeToPlayersChanges,
     theGame,
     turnCounter,
     updatePlayer,
