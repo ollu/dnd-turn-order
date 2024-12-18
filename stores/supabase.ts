@@ -20,6 +20,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
   const supabase = useSupabaseClient()
   const turnCounter = ref(0)
   const user = useSupabaseUser();
+  const isLoaded = ref(false)
 
   async function addPlayer(player: Player) {
     const { data, error } = await supabase
@@ -40,11 +41,15 @@ export const useSupabaseStore = defineStore('supabase', () => {
     }
   }
 
-  function changeTurn(value: number) {
-    turnCounter.value += value
-
-    if (turnCounter.value < 0) {
-      turnCounter.value = 0
+  async function changeTurn(value: number) {
+    const { data, error } = await supabase
+      .from("games")
+      .update({ turnCounter: theGame.value.turnCounter + value })
+      .match({ id: theGame.value.id })
+      .select();
+    
+      if (error) {
+      console.error("Error updating turn count: ", error);
     }
   }
 
@@ -52,7 +57,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
     const { data, error } = await supabase
       .from("players")
       .delete()
-      .match({ isHero: isHero, games_id: theGame.value })
+      .match({ isHero: isHero, games_id: theGame.value.id })
       .select();
 
     if (error) {
@@ -109,13 +114,14 @@ export const useSupabaseStore = defineStore('supabase', () => {
     theGame.value = await userHasGame();
     players.value = await fetchPlayersData() as Player[];
     conditions.value = await loadConditions() as string[];
+    isLoaded.value = true;
   }
 
   async function ResetInitiative() {
     const { data, error } = await supabase
       .from("players")
       .update({ initiative: 0 })
-      .match({ isHero: true, games_id: theGame.value })
+      .match({ isHero: true, games_id: theGame.value.id })
       .select();
 
     if (error) {
@@ -123,8 +129,12 @@ export const useSupabaseStore = defineStore('supabase', () => {
     }
   }
 
-  function resetTurnCounter() {
-    turnCounter.value = 0
+  async function resetTurnCounter() {
+    const { data, error } = await supabase
+    .from("games")
+    .update({ turnCounter: 0 })
+    .match({ id: theGame.value.id })
+    .select();
   }
 
   function sortPlayers() {
@@ -231,12 +241,14 @@ export const useSupabaseStore = defineStore('supabase', () => {
     deletePlayersOfType,
     deletePlayerById,
     getPlayerById,
+    isLoaded,
     loadConditions,
     loadGameData,
     players,
     ResetInitiative,
     resetTurnCounter,
     subscribeToTurnOrderChanges,
+    theGame,
     turnCounter,
     updatePlayer,
   };

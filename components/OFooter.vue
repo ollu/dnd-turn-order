@@ -12,7 +12,8 @@
         </OButton>
         <OButton @click.native="incrementTurn" class="border-r border-l">
           <template #icon>
-            <span class="font-bold text-gray-50">{{ store.turnCounter }}</span>
+            <span v-if="store.isLoaded" class="font-bold text-gray-50">{{ store.theGame.turnCounter }}</span>
+            <span v-else="store.isLoaded" class="font-bold text-gray-50">0</span>
           </template>
           <template #text>
             Turn <span class="text-sm">+</span>
