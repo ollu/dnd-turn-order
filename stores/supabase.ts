@@ -7,10 +7,16 @@ interface Player {
   isHero: boolean;
 }
 
+interface Game {
+  id: number;
+  fumble: number;
+  turnCounter: number;
+}
+
 export const useSupabaseStore = defineStore('supabase', () => {
   const conditions = ref<string[]>([])
   const players = ref<Player[]>([])
-  const gamesID = ref(null)
+  const theGame = ref<Game>()
   const supabase = useSupabaseClient()
   const turnCounter = ref(0)
   const user = useSupabaseUser();
@@ -20,7 +26,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
       .from('players')
       .insert([
         { 
-          games_id: gamesID.value, 
+          games_id: theGame.value, 
           name: player.name, 
           initiative: player.initiative, 
           conditions: [], 
@@ -46,7 +52,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
     const { data, error } = await supabase
       .from("players")
       .delete()
-      .match({ isHero: isHero, games_id: gamesID.value })
+      .match({ isHero: isHero, games_id: theGame.value })
       .select();
 
     if (error) {
@@ -70,31 +76,19 @@ export const useSupabaseStore = defineStore('supabase', () => {
    * Fetches active game from supabase and adds it to the store.
    */
   async function fetchPlayersData() {
+    if (!theGame.value) return;
+
     const { data, error } = await supabase
-      .from("games")
-      .select(
-        `
-        id,
-        players (
-          id,
-          games_id,
-          name,
-          initiative,
-          conditions,
-          isHero
-        )
-      `
-      )
-      .match({uuid: user.value.id})
-      .order("initiative", { referencedTable: "players", ascending: false })
-      .single();
+      .from("players")
+      .select("*")
+      .match({games_id: theGame.value.id})
+      .order("initiative", { ascending: false })
 
     if (error) {
-      console.error('Error fetching data:', error);
-    } else {
-      players.value = data.players as Player[];
-      gamesID.value = data.id;
+      console.error('Error fetching players:', error);
     }
+
+    return data;
   }
 
   function getPlayerById(id: number) {
@@ -108,24 +102,20 @@ export const useSupabaseStore = defineStore('supabase', () => {
       return null;
     }
 
-    if (data) {
-      conditions.value = data.map((condition: any) => condition.name);
-    }
-
-    return data;
+    return data.map((condition: any) => condition.name);
   }
 
   async function loadGameData() {
-    await userHasGame();
-    await fetchPlayersData();
-    await loadConditions();
+    theGame.value = await userHasGame();
+    players.value = await fetchPlayersData() as Player[];
+    conditions.value = await loadConditions() as string[];
   }
 
   async function ResetInitiative() {
     const { data, error } = await supabase
       .from("players")
       .update({ initiative: 0 })
-      .match({ isHero: true, games_id: gamesID.value })
+      .match({ isHero: true, games_id: theGame.value })
       .select();
 
     if (error) {
@@ -197,7 +187,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
       .from("players")
       .upsert({
         id: player.id,
-        games_id: gamesID.value,
+        games_id: theGame.value.id,
         name: player.name,
         conditions: conditionsString,
         initiative: player.initiative,
@@ -208,8 +198,6 @@ export const useSupabaseStore = defineStore('supabase', () => {
     if (error) {
       console.error("Error updating player", error);
     }
-
-    sortPlayers();
   }
 
   async function userHasGame() {
@@ -230,12 +218,10 @@ export const useSupabaseStore = defineStore('supabase', () => {
 
       if (error) {
         console.error("Error creating game", error);
-      } else {
-        gamesID.value = data[0].id;
       }
-    } else {
-      gamesID.value = data[0].id;
     }
+    
+    return data[0];
   }
 
   return {
