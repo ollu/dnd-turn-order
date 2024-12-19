@@ -23,11 +23,13 @@ export const useSupabaseStore = defineStore('supabase', () => {
   const isLoaded = ref(false)
 
   async function addPlayer(player: Player) {
+    if (!theGame.value) return;
+
     const { data, error } = await supabase
       .from('players')
       .insert([
         { 
-          games_id: theGame.value, 
+          games_id: theGame.value.id, 
           name: player.name, 
           initiative: player.initiative, 
           conditions: [], 
