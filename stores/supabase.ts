@@ -121,10 +121,10 @@ export const useSupabaseStore = defineStore('supabase', () => {
     isLoaded.value = true;
   }
 
-  async function ResetInitiative() {
+  async function ResetPlayerValues() {
     const { data, error } = await supabase
       .from("players")
-      .update({ initiative: 0 })
+      .update({ initiative: 0, lastInTurn: false })
       .match({ isHero: true, games_id: theGame.value.id })
       .select();
 
@@ -141,12 +141,25 @@ export const useSupabaseStore = defineStore('supabase', () => {
     .select();
   }
 
+  /**
+   * Sorts the players array in place.
+   */
   function sortPlayers() {
     players.value.sort((a, b) => {
-      if (a.lastInTurn && !b.lastInTurn) return 1; // Move a to the end
-      if (!a.lastInTurn && b.lastInTurn) return -1; // Move b to the end
-      if (a.lastInTurn && b.lastInTurn) return b.initiative - a.initiative; // Sort by initiative within lastInTurn group in descending order
-      return b.initiative - a.initiative; // Sort by initiative for others in descending order
+      // Move player a to the end if player a is last in turn and player b is not
+      if (a.lastInTurn && !b.lastInTurn) return 1;
+      // Move player b to the end if player a is not last in turn and player b is last in turn
+      if (!a.lastInTurn && b.lastInTurn) return -1;
+      // Sort by initiative within lastInTurn group in descending order
+      if (a.lastInTurn && b.lastInTurn) return b.initiative - a.initiative;
+
+      // If both initiatives are 0, sort alphabetically by name
+      if (a.initiative === 0 && b.initiative === 0) {
+        return a.name.localeCompare(b.name);
+      }
+
+      // Sort by initiative for others in descending order
+      return b.initiative - a.initiative;
     });
   }
 
@@ -280,7 +293,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
     loadConditions,
     loadGameData,
     players,
-    ResetInitiative,
+    ResetPlayerValues,
     resetTurnCounter,
     subscribeToGameChanges,
     subscribeToPlayersChanges,

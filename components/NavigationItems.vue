@@ -27,7 +27,8 @@ function closeMenu() {
 function resetFight() {
   let isHero = false
   store.deletePlayersOfType(isHero)
-  store.ResetInitiative()
+  store.ResetPlayerValues()
+  store.resetTurnCounter()
   closeMenu()
 }
 
