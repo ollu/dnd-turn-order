@@ -5,6 +5,7 @@ interface Player {
   initiative: number;
   conditions: string[];
   isHero: boolean;
+  lastInTurn: boolean;
 }
 
 interface Game {
@@ -115,6 +116,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
   async function loadGameData() {
     theGame.value = await userHasGame();
     players.value = await fetchPlayersData() as Player[];
+    sortPlayers()
     conditions.value = await loadConditions() as string[];
     isLoaded.value = true;
   }
@@ -140,7 +142,11 @@ export const useSupabaseStore = defineStore('supabase', () => {
   }
 
   function sortPlayers() {
-    players.value.sort((a, b) => b.initiative - a.initiative);
+    players.value.sort((a, b) => {
+      if (a.lastInTurn) return 1; // Move a to the end
+      if (b.lastInTurn) return -1; // Move b to the end
+      return b.initiative - a.initiative; // Sort by initiative
+    })
   }
 
   function subscribeToGameChanges() {
@@ -229,6 +235,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
         conditions: conditionsString,
         initiative: player.initiative,
         isHero: player.isHero,
+        lastInTurn: player.lastInTurn,
       })
       .select();
 
