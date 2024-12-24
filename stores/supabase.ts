@@ -143,10 +143,11 @@ export const useSupabaseStore = defineStore('supabase', () => {
 
   function sortPlayers() {
     players.value.sort((a, b) => {
-      if (a.lastInTurn) return 1; // Move a to the end
-      if (b.lastInTurn) return -1; // Move b to the end
-      return b.initiative - a.initiative; // Sort by initiative
-    })
+      if (a.lastInTurn && !b.lastInTurn) return 1; // Move a to the end
+      if (!a.lastInTurn && b.lastInTurn) return -1; // Move b to the end
+      if (a.lastInTurn && b.lastInTurn) return b.initiative - a.initiative; // Sort by initiative within lastInTurn group in descending order
+      return b.initiative - a.initiative; // Sort by initiative for others in descending order
+    });
   }
 
   function subscribeToGameChanges() {
