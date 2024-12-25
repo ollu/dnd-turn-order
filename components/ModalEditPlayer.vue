@@ -17,7 +17,7 @@
             :class="buttonClass"
             class="btn w-full h-[42px]"
           >
-            {{ isLastInTurn ? 'Yes' : 'No' }}
+            <span class="flex items-center justify-center gap-2">{{ isLastInTurn ? 'Yes' : 'No' }}<OIcon v-if="isLastInTurn" color="dark" size="small" :icon="iconLastInTurn" /></span>
           </button>
         </span>
       </span>
@@ -31,6 +31,7 @@
 </template>
 <script setup>
 import { onMounted, ref } from 'vue'
+import { iconLastInTurn } from '~/assets/icons';
 const props = defineProps({
   playerID: {
     type: Number,

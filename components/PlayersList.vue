@@ -11,7 +11,7 @@
               <span class="capitalize font-bold flex items-center gap-1">
                 <OIcon v-if="player.isHero" color="hero" size="small" :icon="iconPacman" />
                 <OIcon v-if="!player.isHero" color="dark" size="small" :icon="iconGhost" />
-                {{ player.name }}
+                {{ player.name }} <OIcon v-if="player.lastInTurn" color="medium" size="small" :icon="iconLastInTurn" />
               </span>
             </div>
             <div v-if="player.conditions.length > 0" class="text-xs uppercase">
@@ -32,7 +32,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { iconGhost, iconPacman, iconTombStone } from '~/assets/icons.js'
+import { iconGhost, iconPacman, iconTombStone, iconLastInTurn } from '~/assets/icons.js'
 
 const store = useSupabaseStore()
 const editModal = ref(false)
