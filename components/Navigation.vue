@@ -1,5 +1,5 @@
 <template>
-<nav class="bg-gray-800">
+<nav class="bg-gray-800 flex flex-col md:justify-center">
   <div class="mx-auto max-w-3xl px-4">
     <div class="flex h-16 justify-end items-center flex-row-reverse">
       <div class="flex">
@@ -10,13 +10,10 @@
             <NuxtLink to="/" @click="closeMenu()"><img src="../assets/logo-text.png" class="w-48 h-full ml-4"></NuxtLink>
           </span>
         </div>
-        <div class="hidden md:ml-4 md:flex flex-row">
-          <NavigationItems />
-        </div>
       </div>
-      <div class="flex md:hidden mr-4 z-10">
+      <div class="mr-4 z-10">
         <!-- Mobile menu button -->
-        <button @click="toggleMenu" value="hamburger" class="flex flex-col justify-around h-8 w-8 p-1 rounded">
+        <button @click="toggleMenu" class="flex flex-col justify-around h-8 w-8 p-1 rounded">
           <!-- Hamburger Icon (3 lines) -->
           <span 
           :class="{ 'translate-y-3 -rotate-45': isMenuOpen }"
@@ -33,8 +30,12 @@
   </div>
 
   <!-- Mobile menu, show/hide based on menu state. -->
-  <div :class="{'hidden': !isMenuOpen, 'flex justify-start flex-col': isMenuOpen}" class="md:hidden ml-2 mb-2 md:mb-0" id="mobile-menu">
-    <NavigationItems @toggleMenu="toggleMenu"/>
+  <div 
+    @toggleMenu="toggleMenu" 
+    :class="{'hidden': !isMenuOpen, 'flex flex-col': isMenuOpen}" 
+    class="ml-2 mb-2 md:mb-0" 
+    id="mobile-menu">
+    <NavigationItems />
   </div>
 </nav>
 </template>
