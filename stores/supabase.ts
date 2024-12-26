@@ -14,6 +14,11 @@ interface Game {
   turnCounter: number;
 }
 
+interface Condition {
+  name: string;
+  description: string;
+}
+
 export const useSupabaseStore = defineStore('supabase', () => {
   const conditions = ref<string[]>([])
   const players = ref<Player[]>([])
@@ -110,7 +115,14 @@ export const useSupabaseStore = defineStore('supabase', () => {
       return null;
     }
 
-    return data.map((condition: any) => condition.name);
+    // return data.map((condition: any) => condition.name);
+    return data.map((condition: Condition) => {
+      return {
+        name: condition.name,
+        description: condition.description,
+      };
+    });
+
   }
 
   async function loadGameData() {

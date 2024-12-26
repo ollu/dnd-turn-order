@@ -11,7 +11,11 @@
           :disabled="canSelectCondition(condition)"
           @change="emitSelectedConditions"
         >
-        <span class=" overflow-scroll whitespace-nowrap">{{ condition }}</span>
+        <details v-if="condition.description">
+          <summary>{{ condition.name }}</summary>
+          <p>{{ condition.description }}</p>
+        </details>
+        <span v-else>{{ condition.name }}</span>
       </label>
     </div>
     <p v-if="localSelectedConditions.length >= maxConditions" class="text-gray-800 text-sm mt-4">Max number of conditions selected ({{ maxConditions }}).</p>
