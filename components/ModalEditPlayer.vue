@@ -11,13 +11,13 @@
           <input v-model="initiative" @keyup.enter="updatePlayer" type="tel" id="hero-initiative" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5">
         </span>
         <span>
-          <label for="hero-initiative" class="mt-2 pl-2 block text-sm font-medium text-gray-900">Last in turn</label>
+          <label for="hero-initiative" class="mt-2 pl-2 block text-sm font-medium text-gray-900">Last in turn:</label>
           <button
             @click="toggleSortLastInTurn"
             :class="buttonClass"
             class="btn w-full h-[42px]"
           >
-            <span class="flex items-center justify-center gap-2">{{ isLastInTurn ? 'Yes' : 'No' }}<OIcon v-if="isLastInTurn" color="dark" size="small" :icon="iconLastInTurn" /></span>
+            <span class="flex items-center justify-center gap-2">{{ isLastInTurn ? 'Deactivate' : 'Activate' }}<OIcon v-if="isLastInTurn" color="dark" size="small" :icon="iconLastInTurn" /></span>
           </button>
         </span>
       </span>
