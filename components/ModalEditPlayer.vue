@@ -58,7 +58,7 @@ function updatePlayer() {
     id: props.playerID, 
     name: heroName.value, 
     initiative: initiative.value,
-    conditions: [...selectedConditions.value],
+    conditions: selectedConditions.value,
     isHero: player.value.isHero,
     lastInTurn: isLastInTurn.value
   })
@@ -80,6 +80,7 @@ onMounted(() => {
   heroName.value = player.value.name
   initiative.value = player.value.initiative
   isLastInTurn.value = player.value.lastInTurn
+  selectedConditions.value = player.value.conditions
 })
 
 

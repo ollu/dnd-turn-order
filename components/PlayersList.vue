@@ -14,8 +14,10 @@
                 {{ player.name }} <OIcon v-if="player.lastInTurn" color="medium" size="small" :icon="iconLastInTurn" />
               </span>
             </div>
-            <div v-if="player.conditions.length > 0" class="text-xs uppercase">
-              <span v-for="(condition, index) in player.conditions.filter(c => c !== 'Dead')" :key="index" class="pr-1">&nbsp;{{ condition }}</span>
+            <div v-if="player.conditions.length > 0" class="text-xs">
+              <span v-for="(condition, index) in player.conditions.filter(c => c !== 'Dead')" :key="index">
+                <span class="">{{ condition }}<em v-if="player.conditions.length > 1 && index !== player.conditions.length -1 ">&nbsp;-&nbsp;</em></span>
+              </span>
             </div>
             <div v-else class="text-xs uppercase text-gray-400">No conditions</div>
           </div>

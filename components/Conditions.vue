@@ -11,11 +11,7 @@
           :disabled="canSelectCondition(condition)"
           @change="emitSelectedConditions"
         >
-        <details v-if="condition.description">
-          <summary>{{ condition.name }}</summary>
-          <p>{{ condition.description }}</p>
-        </details>
-        <span v-else>{{ condition.name }}</span>
+        <span class="overflow-scroll whitespace-nowrap">{{ condition }}</span>
       </label>
     </div>
     <p v-if="localSelectedConditions.length >= maxConditions" class="text-gray-800 text-sm mt-4">Max number of conditions selected ({{ maxConditions }}).</p>
@@ -41,8 +37,7 @@ watch(() => props.playerID, (newPlayerID) => {
     const player = store.getPlayerById(newPlayerID)
 
     if (player) {
-      localSelectedConditions.value = [...player.conditions]
-      console.log(localSelectedConditions.value);
+      localSelectedConditions.value = player.conditions
     } else {
       console.error(`Player with ID ${newPlayerID} not found`)
     }
