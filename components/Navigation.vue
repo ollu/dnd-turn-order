@@ -43,6 +43,12 @@ const isMenuOpen = ref(false)
 
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value
+
+  if (isMenuOpen.value) {
+    setTimeout(() => {
+      isMenuOpen.value = false
+    }, 10000)
+  }
 }
 
 </script>
