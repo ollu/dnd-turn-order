@@ -124,7 +124,7 @@ export const useSupabaseStore = defineStore('supabase', () => {
   async function ResetPlayerValues() {
     const { data, error } = await supabase
       .from("players")
-      .update({ initiative: 0, lastInTurn: false })
+      .update({ initiative: 0, lastInTurn: false, conditions: [] })
       .match({ isHero: true, games_id: theGame.value.id })
       .select();
 
