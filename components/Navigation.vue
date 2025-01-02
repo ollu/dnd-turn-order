@@ -7,13 +7,13 @@
           <span href="#" class="flex items-center rtl:space-x-reverse relative">
             <img src="../assets/breath.svg" :class="[isMenuOpen ? 'w-10 h-10 absolute top-4 -left-8 animate-grow z-0' : 'hidden' ]">
             <img src="../assets/dragon.png" class="w-12 h-12 duration-75" :class="{ '-scale-x-100 duration-75 rotate-45': isMenuOpen }">
-            <NuxtLink to="/" @click="closeMenu()"><img src="../assets/logo-text.png" class="w-48 h-full ml-4"></NuxtLink>
+            <NuxtLink to="/" @click="toggleMenu()"><img src="../assets/logo-text.png" class="w-48 h-full ml-4"></NuxtLink>
           </span>
         </div>
       </div>
       <div class="mr-4 z-10">
         <!-- Mobile menu button -->
-        <button @click="toggleMenu" class="flex flex-col justify-around h-8 w-8 p-1 rounded">
+        <button @click="toggleMenu()" class="flex flex-col justify-around h-8 w-8 p-1 rounded">
           <!-- Hamburger Icon (3 lines) -->
           <span 
           :class="{ 'translate-y-3 -rotate-45': isMenuOpen }"
@@ -31,11 +31,10 @@
 
   <!-- Mobile menu, show/hide based on menu state. -->
   <div 
-    @toggleMenu="toggleMenu" 
     :class="{'hidden': !isMenuOpen, 'flex flex-col': isMenuOpen}" 
     class="ml-2 mb-2 md:mb-0" 
     id="mobile-menu">
-    <NavigationItems />
+    <NavigationItems @toggleMenu="toggleMenu()" />
   </div>
 </nav>
 </template>
@@ -44,10 +43,6 @@ const isMenuOpen = ref(false)
 
 function toggleMenu() {
   isMenuOpen.value = !isMenuOpen.value
-}
-
-function closeMenu() {
-  isMenuOpen.value = false
 }
 
 </script>
