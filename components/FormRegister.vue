@@ -67,7 +67,7 @@ const userRegister = async () => {
     const { error } = await client.auth.signUp({
       email: email.value,
       password: password.value,
-      emailRedirectTo: 'http://localhost:3000/login',
+      emailRedirectTo: 'https://dnd.fickla.nu/login',
     })
     email.value = ''
     password.value = ''
