@@ -3,7 +3,7 @@
     <ul class="mx-2 md:mx-4">
       <li v-for="player in store.players" :key="player.id" class="flex gap-2 h-16 border rounded p-2 my-2 odd:bg-gray-100 even:bg-gray-200 relative">
         <div v-if="isDead(player.conditions)" class="animate-rise grid grid-flow-row">
-          <OIcon color="medium" :icon="iconTombStone" size="x-large"/>
+          <OIcon color="dead" :icon="iconDead" size="x-large"/>
         </div>
         <div @click="openEditPlayer(player.id)" class="shrink w-full z-50 cursor-pointer">
           <div class="grid gap-2">
@@ -34,7 +34,7 @@
 
 <script setup>
 import { ref } from 'vue'
-import { iconGhost, iconPacman, iconTombStone, iconLastInTurn } from '~/assets/icons.js'
+import { iconGhost, iconPacman, iconDead, iconLastInTurn } from '~/assets/icons.js'
 
 const store = useSupabaseStore()
 const editModal = ref(false)
