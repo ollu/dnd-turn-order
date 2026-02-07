@@ -35,7 +35,8 @@ import fumbleChartPlayer from '~/assets/fumble-chart-player.json'
 const roll = ref(666)
 const showFumble = ref(false)
 const isActive = ref(true)
-const fumbleChart = ref(fumbleChartPlayer)
+const route = useRoute()
+const fumbleChart = ref(route.query.type === 'monster' ? fumbleChartMonster : fumbleChartPlayer)
 definePageMeta({
   layout: 'fumble-chart',
 })

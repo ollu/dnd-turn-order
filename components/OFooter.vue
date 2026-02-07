@@ -10,12 +10,43 @@
             <span class="text-sm">+ </span>Hero
           </template>
         </OButton>
-        <OButton class="border-r border-l">
-          <template #icon>
-            <img src="/assets/dice20.svg" alt="D20 Icon" class="w-6 h-6" />
-          </template>
-          <template #text>Fumble</template>
-        </OButton>
+        <div class="relative h-full">
+          <Transition name="fumble-menu">
+            <div
+              v-if="fumbleMenu"
+              class="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 bg-gray-900 border border-gray-600 rounded-lg shadow-lg overflow-hidden min-w-[160px]"
+            >
+              <NuxtLink
+                to="/fumble-charts?type=hero"
+                class="flex items-center gap-2 w-full px-4 py-3 text-sm text-gray-100 hover:bg-gray-700 transition-colors"
+                @click="fumbleMenu = false"
+              >
+                <OIcon :icon="iconPacman" class="w-5 h-5" />
+                Heroes
+              </NuxtLink>
+              <NuxtLink
+                to="/fumble-charts?type=monster"
+                class="flex items-center gap-2 w-full px-4 py-3 text-sm text-gray-100 hover:bg-gray-700 transition-colors border-t border-gray-700"
+                @click="fumbleMenu = false"
+              >
+                <OIcon :icon="iconGhost" class="w-5 h-5" />
+                Monster
+              </NuxtLink>
+              <button
+                class="flex items-center gap-2 w-full px-4 py-3 text-sm text-gray-100 hover:bg-gray-700 transition-colors border-t border-gray-700"
+                @click="fumbleMenu = false"
+              >
+                Manual
+              </button>
+            </div>
+          </Transition>
+          <OButton class="border-r border-l h-full w-full" @click.native="fumbleMenu = !fumbleMenu">
+            <template #icon>
+              <img src="/assets/dice20.svg" alt="D20 Icon" class="w-6 h-6" />
+            </template>
+            <template #text>Fumble</template>
+          </OButton>
+        </div>
         <OButton @click.native="monsterModal = true">
           <template #icon>
             <OIcon :icon="iconGhost" />
@@ -41,4 +72,21 @@ import { iconGhost, iconPacman } from '~/assets/icons'
 
 const monsterModal = ref(false)
 const heroModal = ref(false)
+const fumbleMenu = ref(false)
 </script>
+
+<style scoped>
+.fumble-menu-enter-active,
+.fumble-menu-leave-active {
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.fumble-menu-enter-from,
+.fumble-menu-leave-to {
+  opacity: 0;
+  transform: translate(-50%, 4px);
+}
+.fumble-menu-enter-to,
+.fumble-menu-leave-from {
+  transform: translate(-50%, 0);
+}
+</style>
