@@ -10,14 +10,11 @@
             <span class="text-sm">+ </span>Hero
           </template>
         </OButton>
-        <OButton @click.native="incrementTurn" class="border-r border-l">
+        <OButton class="border-r border-l">
           <template #icon>
-            <span v-if="store.isLoaded" class="font-bold text-gray-50">{{ store.theGame.turnCounter }}</span>
-            <span v-else="store.isLoaded" class="font-bold text-gray-50">0</span>
+            <img src="/assets/dice20.svg" alt="D20 Icon" class="w-6 h-6" />
           </template>
-          <template #text>
-            Turn <span class="text-sm">+</span>
-          </template>
+          <template #text>Fumble</template>
         </OButton>
         <OButton @click.native="monsterModal = true">
           <template #icon>
@@ -42,11 +39,6 @@ import ModalAddMonsters from './ModalAddMonsters.vue'
 import ModalAddHeroes from './ModalAddHeroes.vue'
 import { iconGhost, iconPacman } from '~/assets/icons'
 
-const store = useSupabaseStore()
 const monsterModal = ref(false)
 const heroModal = ref(false)
-
-function incrementTurn() {
-  store.changeTurn(1)
-}
 </script>
