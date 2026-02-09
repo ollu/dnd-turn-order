@@ -10,6 +10,7 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@3d-dice/dice-box": "^1.1.4",
     "@pinia/nuxt": "^0.7.0",
     "@vite-pwa/nuxt": "^0.10.6",
     "nuxt": "^3.14.0",
