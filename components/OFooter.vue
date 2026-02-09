@@ -34,12 +34,14 @@
                 <OIcon :icon="iconGhost" class="w-5 h-5" />
                 Monster
               </NuxtLink>
-              <button
+              <NuxtLink
+                to="/fumble-charts-manual?type=hero"
                 class="flex items-center gap-2 w-full px-4 py-3 text-sm text-gray-100 hover:bg-gray-700 transition-colors border-t border-gray-700"
                 @click="fumbleMenu = false"
               >
-                Manual
-              </button>
+                <OIcon :icon="iconNumeric" class="w-5 h-5" />
+                Manual input
+              </NuxtLink>
             </div>
           </Transition>
           <OButton class="border-l h-full w-full" @click.native="fumbleMenu = !fumbleMenu">
@@ -78,7 +80,7 @@ import OButton from '~/components/OButton.vue'
 import OIcon from './OIcon.vue'
 import ModalAddMonsters from './ModalAddMonsters.vue'
 import ModalAddHeroes from './ModalAddHeroes.vue'
-import { iconGhost, iconPacman, iconHome } from '~/assets/icons'
+import { iconGhost, iconPacman, iconHome, iconNumeric } from '~/assets/icons'
 
 const monsterModal = ref(false)
 const heroModal = ref(false)
