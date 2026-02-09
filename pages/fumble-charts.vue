@@ -3,27 +3,25 @@
     <div class="mx-auto max-w-xl">
       <h1 class="text-4xl text-center mt-6">{{ fumbleChart.header }}</h1>
       <div id="dice-box" class="w-full h-40 relative"></div>
-      <p class="grid content-center my-4 text-xl sm:rounded-md bg-slate-300 p-4 h-32 mb-10">
+      <p class="grid content-center my-4 text-xl bg-slate-300 p-4 h-32 mb-2">
         <span v-if="showFumble">
           <h3 class="text-center font-semibold">{{ roll ? `You rolled a ${roll}!` : 'Roll the dice to see your fumble result.' }}</h3>
           <p class="italic">{{ fumbleChart.fumbles[roll-1] }}</p>
         </span>
       </p>
+      <div class="grid grid-cols-2 gap-2 p-2">
+        <button @click="rollDice" class="btn-large" :class="[isActive ? 'primary' : 'secondary' ]" :disabled="!isActive">
+          Roll d20
+        </button>
+        <button @click="switchChart" class="btn-large bg-slate-600 text-white">
+          Switch to {{ fumbleChart.type === "monster" ? "Heroes" : "Monsters" }}
+        </button>
+      </div>
       <ul v-for="(description, index) in fumbleChart.descriptions" :key="index">
         <li class="text-sm py-1 px-4">— {{ description }}</li>
       </ul>
     </div>
   </main>
-  <footer class="fixed bottom-0 left-0 z-50 w-full h-20 border-t bg-gray-800 border-gray-700">
-    <div class="grid grid-cols-2 gap-2 h-full p-2">
-      <button @click="rollDice" class="btn-large" :class="[isActive ? 'primary' : 'secondary' ]" :disabled="!isActive">
-        Roll d20
-      </button>
-      <button @click="switchChart" class="btn-large bg-slate-600 text-white">
-        Switch to {{ fumbleChart.type === "monster" ? "Heroes" : "Monsters" }}
-      </button>
-    </div>
-  </footer>
 </template>
 <script setup>
 import fumbleChartMonster from '~/assets/fumble-chart-monster.json'
@@ -36,10 +34,6 @@ const route = useRoute()
 const fumbleChart = ref(route.query.type === 'monster' ? fumbleChartMonster : fumbleChartPlayer)
 
 let diceBox = null
-
-definePageMeta({
-  layout: 'fumble-chart',
-})
 
 onMounted(async () => {
   const { default: DiceBox } = await import('@3d-dice/dice-box')
