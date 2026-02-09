@@ -47,7 +47,7 @@ onMounted(async () => {
     assetPath: '/assets/dice-box/',
     theme: 'default',
     themeColor: '#D01118',
-    scale: 20,
+    scale: 25,
   })
   await diceBox.init()
   diceBox.onRollComplete = (results) => {
