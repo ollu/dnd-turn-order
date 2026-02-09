@@ -14,7 +14,7 @@
           Roll d20
         </button>
         <button @click="switchChart" class="btn-large bg-slate-600 text-white">
-          Switch to {{ fumbleChart.type === "monster" ? "Heroes" : "Monsters" }}
+          Switch to <OIcon size="small" :icon="fumbleChart.type === 'monster' ? iconPacman : iconGhost" class="inline-block align-middle" />
         </button>
       </div>
       <ul v-for="(description, index) in fumbleChart.descriptions" :key="index">
@@ -26,6 +26,7 @@
 <script setup>
 import fumbleChartMonster from '~/assets/fumble-chart-monster.json'
 import fumbleChartPlayer from '~/assets/fumble-chart-player.json'
+import { iconGhost, iconPacman } from '~/assets/icons'
 
 const roll = ref(null)
 const showFumble = ref(false)
