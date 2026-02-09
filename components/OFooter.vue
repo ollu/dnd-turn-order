@@ -2,7 +2,7 @@
   <div>
     <footer class="fixed bottom-0 left-0 z-50 w-full h-20 border-t bg-gray-800 border-gray-700">
       <div class="grid h-full max-w-lg grid-cols-4 mx-auto gap-x-0.5">
-        <NuxtLink to="/">
+        <NuxtLink to="/" @click="fumbleMenu = false">
           <OButton class="h-full w-full">
             <template #icon>
               <OIcon :icon="iconHome" />
@@ -49,7 +49,7 @@
             <template #text>Fumble</template>
           </OButton>
         </div>
-        <OButton class="border-x" @click.native="heroModal = true">
+        <OButton class="border-x" @click.native="heroModal = true; fumbleMenu = false">
           <template #icon>
             <OIcon :icon="iconPacman" />
           </template>
@@ -57,7 +57,7 @@
             + Hero
           </template>
         </OButton>
-        <OButton @click.native="monsterModal = true">
+        <OButton @click.native="monsterModal = true; fumbleMenu = false">
           <template #icon>
             <OIcon :icon="iconGhost" />
           </template>
